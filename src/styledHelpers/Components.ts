@@ -1,13 +1,11 @@
 import styled from 'styled-components';
 
-export const SidebarWrapper = styled.div`
+export const Link = styled.a`
+  text-decoration: none;
+  outline: none;
 
-`;
-
-export const Wrapper = styled.div`
-    background: #fff;
-    display: flex;
-    justify-content: center;
-    padding: 5px;
-    border-radius: 5px;
+  &:hover, &:focus, &:visited, &:active {
+    text-decoration: none;
+    outline: none;
+  }
 `;

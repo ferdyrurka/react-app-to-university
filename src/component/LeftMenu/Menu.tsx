@@ -5,56 +5,56 @@ import {Link} from "../../styledHelpers/Components";
 import {Colors} from "../../styledHelpers/Colors";
 
 function Menu() {
-    const MenuWrapper = styled(FlexColumn)`
+    const LeftMenuWrapper = styled(FlexColumn)`
       margin: 5px 0 0 20px;
     `;
 
-    const MenuItemWrapper = styled.div`
-      margin-top: 15px;
+    const LeftMenuItemWrapper = styled.div`
+      margin-top: 20px;
     `;
 
-    const MenuItem = styled(Link)`
-      &:hover {
-        span {
+    const LeftMenuItem = styled(Link)`
+      display: flex;
+      align-items:center;
+      
+      span {
+        color: #60677A;
+        transition: 0.2s ease-in-out;
+
+        &:hover {
           color: ${Colors.darkGrey};
           transition: 0.2s ease-in-out;
         }
       }
 
-      span {
-        color: #60677A;
-        vertical-align: super;
-        transition: 0.2s ease-in-out;
-      }
-
       .logo {
         margin-right: 15px;
-        width: 25px;
+        width: 30px;
         height: auto;
       }
     `;
 
     return (
-        <MenuWrapper>
-            <MenuItemWrapper>
-                <MenuItem href="/test">
+        <LeftMenuWrapper>
+            <LeftMenuItemWrapper>
+                <LeftMenuItem href="/test">
                     <img className="logo" src="media/icons/publications.png" alt="Publications"/>
                     <span>Publications</span>
-                </MenuItem>
-            </MenuItemWrapper>
-            <MenuItemWrapper>
-                <MenuItem href="/test">
+                </LeftMenuItem>
+            </LeftMenuItemWrapper>
+            <LeftMenuItemWrapper>
+                <LeftMenuItem href="/test">
                     <img className="logo" src="media/icons/ecosystem.png" alt="Ecosystem"/>
                     <span>Ecosystem</span>
-                </MenuItem>
-            </MenuItemWrapper>
-            <MenuItemWrapper>
-                <MenuItem href="/test">
+                </LeftMenuItem>
+            </LeftMenuItemWrapper>
+            <LeftMenuItemWrapper>
+                <LeftMenuItem href="/test">
                     <img className="logo" src="media/icons/entities2.png" alt="Entities"/>
                     <span>Entities</span>
-                </MenuItem>
-            </MenuItemWrapper>
-        </MenuWrapper>
+                </LeftMenuItem>
+            </LeftMenuItemWrapper>
+        </LeftMenuWrapper>
     );
 }
 

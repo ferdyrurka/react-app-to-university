@@ -18,13 +18,14 @@ function Action() {
       }
 
       .logo {
-        width: 30px;
+        width: 25px;
         height: auto;
-        margin: 0 15px 0 20px;
+        margin: 0 5px 0 20px;
       }
     `;
 
     const ActionButton = styled.button`
+      cursor: pointer;
       background-color: transparent;
       border-radius: 5px;
       border-width: 1px;

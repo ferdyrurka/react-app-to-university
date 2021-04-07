@@ -8,8 +8,7 @@ import Menu from "./Menu";
 function LeftMenu() {
     const LeftMenuContainer = styled.div`
       margin-left: 20px;
-      margin-top: 15px;
-      width: 250px;
+      width: 230px;
     `;
 
     const AccountWrapper = styled(FlexColumn)`

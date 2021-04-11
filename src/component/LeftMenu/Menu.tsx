@@ -4,36 +4,36 @@ import {FlexColumn} from "../../styledHelpers/Grid";
 import {Link} from "../../styledHelpers/Components";
 import {Colors} from "../../styledHelpers/Colors";
 
+const LeftMenuWrapper = styled(FlexColumn)`
+  margin: 5px 0 0 20px;
+`;
+
+const LeftMenuItemWrapper = styled.div`
+  margin-top: 20px;
+`;
+
+const LeftMenuItem = styled(Link)`
+  display: flex;
+  align-items: center;
+
+  span {
+    color: #60677A;
+    transition: 0.2s ease-in-out;
+
+    &:hover {
+      color: ${Colors.darkGrey};
+      transition: 0.2s ease-in-out;
+    }
+  }
+
+  .logo {
+    margin-right: 15px;
+    width: 30px;
+    height: auto;
+  }
+`;
+
 function Menu() {
-    const LeftMenuWrapper = styled(FlexColumn)`
-      margin: 5px 0 0 20px;
-    `;
-
-    const LeftMenuItemWrapper = styled.div`
-      margin-top: 20px;
-    `;
-
-    const LeftMenuItem = styled(Link)`
-      display: flex;
-      align-items:center;
-      
-      span {
-        color: #60677A;
-        transition: 0.2s ease-in-out;
-
-        &:hover {
-          color: ${Colors.darkGrey};
-          transition: 0.2s ease-in-out;
-        }
-      }
-
-      .logo {
-        margin-right: 15px;
-        width: 30px;
-        height: auto;
-      }
-    `;
-
     return (
         <LeftMenuWrapper>
             <LeftMenuItemWrapper>

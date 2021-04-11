@@ -5,25 +5,25 @@ import PersonalData from "./PersonalData";
 import Action from "./Action";
 import Menu from "./Menu";
 
+const LeftMenuContainer = styled.div`
+  margin-left: 20px;
+  width: 230px;
+`;
+
+const AccountWrapper = styled(FlexColumn)`
+  background: #fff;
+  border-radius: 5px;
+`;
+
 function LeftMenu() {
-    const LeftMenuContainer = styled.div`
-      margin-left: 20px;
-      width: 230px;
-    `;
-
-    const AccountWrapper = styled(FlexColumn)`
-      background: #fff;
-      border-radius: 5px;
-    `;
-
     return (
         <LeftMenuContainer>
             <AccountWrapper>
-                <PersonalData />
-                <Action />
+                <PersonalData/>
+                <Action/>
             </AccountWrapper>
 
-            <Menu />
+            <Menu/>
         </LeftMenuContainer>
     );
 }

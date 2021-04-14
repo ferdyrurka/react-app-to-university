@@ -1,4 +1,4 @@
-import React from "react";
+import React, {BaseSyntheticEvent} from "react";
 import styled from "styled-components";
 import useDropdown from "react-dropdown-hook";
 import {Colors} from "../../styledHelpers/Colors";
@@ -6,17 +6,27 @@ import {FontSize} from "../../styledHelpers/FontSizes";
 import {CenterItems, FlexRow, FlexColumn} from "../../styledHelpers/Grid";
 import {Link} from "../../styledHelpers/Components";
 import {MenuItems} from "./MenuItems";
+import { Breakpoint } from "../../styledHelpers/Breakpoint";
 
 const DropdownMenuContainer = styled.div`
-  min-width: 100px;
-  max-width: 240px;
-  width: 100%;
+  @media only screen and (min-width: ${Breakpoint["tablet"]}) {
+    min-width: 100px;
+    max-width: 240px;
+    width: 100%;
+    order: 1;
+  }
+
+  @media only screen and (max-width: ${Breakpoint["tablet"]}) {
+    max-width: 25px;
+    margin-right: 15px;
+    order: 5;
+  }
+  
   cursor: pointer;
   position: relative;
 `;
 
 const DropdownMenuTopNavWrapper = styled.div`
-  display: flex;
   justify-content: space-between;
   align-items: center;
 
@@ -41,6 +51,15 @@ const DropdownMenuWrapper = styled.div`
   border-top: 1px solid ${Colors.lightGrey};
   border-bottom-left-radius: 3px;
   border-bottom-right-radius: 3px;
+  z-index: 9999;
+
+  @media only screen and (min-width: ${Breakpoint["tablet"]}) {
+    left: 0;
+  }
+
+  @media only screen and (max-width: ${Breakpoint["tablet"]}) {
+    right: -15px;
+  }
 `;
 
 const DropdownMenuFilter = styled.input`
@@ -103,9 +122,20 @@ const DropdownMenuLogoutWrapper = styled(FlexRow)`
 function DropdownMenu() {
     const [wrapperRef, dropdownOpen, toggleDropdown, closeDropdown] = useDropdown();
 
+    let items = MenuItems.getAll();
+
+    const findItems = (input: BaseSyntheticEvent) => {
+        const searchValue = input.target.value;
+
+        if (searchValue.length > 2) {
+            items = MenuItems.findByTitle(searchValue);
+            console.log('searcg');
+        }
+    };
+
     return (
         <DropdownMenuContainer ref={wrapperRef}>
-            <DropdownMenuTopNavWrapper onClick={!dropdownOpen ? toggleDropdown : closeDropdown}>
+            <DropdownMenuTopNavWrapper onClick={!dropdownOpen ? toggleDropdown : closeDropdown} className="d-none d-md-flex">
                 <CenterItems>
                     <img className="icon" src="media/icons/house2.png" alt="home page"/>
                     <span>Home</span>
@@ -114,11 +144,15 @@ function DropdownMenu() {
                 <img className="arrow-icon" src="media/icons/arrow-down.png" alt="arrow down"/>
             </DropdownMenuTopNavWrapper>
 
+            <DropdownMenuTopNavWrapper onClick={!dropdownOpen ? toggleDropdown : closeDropdown} className="d-flex d-md-none">
+                <img className="icon" src="media/icons/hamburger_menu.png" alt="menu"/>
+            </DropdownMenuTopNavWrapper>
+
             {dropdownOpen &&
                 <DropdownMenuWrapper>
-                    <DropdownMenuFilter type="text" placeholder="Filter..."/>
+                    <DropdownMenuFilter type="text" placeholder="Filter..." onInput={findItems}/>
 
-                    {MenuItems.getAll().map(
+                    {items.map(
                         (itemGroup, index) => {
                             const title = itemGroup.title;
 

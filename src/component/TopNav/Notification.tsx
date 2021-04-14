@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { Breakpoint } from "../../styledHelpers/Breakpoint";
 import {Colors} from "../../styledHelpers/Colors";
 import {FontSize} from "../../styledHelpers/FontSizes";
 import {TopNavIcon} from "./Shared";
@@ -7,7 +8,17 @@ import {TopNavIcon} from "./Shared";
 const TopNavNotificationWrapper = styled.div`
   display: flex;
   align-items: center;
-  margin: 0 25px 0 15px;
+  order: 3;
+
+  @media only screen and (min-width: ${Breakpoint["tablet"]}) {
+    margin: 0 25px 0 auto;
+    padding-left: 15px;
+  }
+
+  @media only screen and (max-width: ${Breakpoint["tablet"]}) {
+    margin: 0 5px 0 auto;
+    padding-left: 5px;
+  }
 `;
 
 const TopNavCircleIcon = styled(TopNavIcon)`
@@ -43,7 +54,7 @@ const TopNavBadge = styled.div`
 function Notification() {
     return (
         <TopNavNotificationWrapper>
-            <TopNavIcon href="/">
+            <TopNavIcon href="/" className="d-none d-md-block">
                 <img src="media/icons/house.png" alt="home page"/>
             </TopNavIcon>
             <TopNavCircleIcon href="/test">

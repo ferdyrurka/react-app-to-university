@@ -6,15 +6,19 @@ import styled from "styled-components";
 
 function App() {
     const Container = styled.div`
-      max-width: 1260px;
       margin: 0 auto;
     `;
 
     return (
         <main>
             <TopNav/>
-            <Container>
-                <LeftMenu/>
+            <Container className="container-lg">
+                <div className="row row-cols-md-2 row-cols-1">
+                    <LeftMenu/>
+                    <div className="col">
+                        Lorem ipsum
+                    </div>
+                </div>
             </Container>
         </main>
     );

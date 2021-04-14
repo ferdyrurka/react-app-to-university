@@ -100,4 +100,29 @@ export class MenuItems
     {
         return items;
     }
+
+    public static findByTitle(
+        title: string
+    ): {title: string, items: {icon: string, title: string, href: string, description: string}[]}[]  {
+        const foundSectionItems: { title: string; items: { icon: string; title: string; href: string; description: string; }[]; }[] = [];
+
+        items.forEach((section) => {
+            const foundItems: { icon: string; title: string; href: string; description: string; }[] = [];
+
+            section.items.forEach((item) => {
+                if (item.title.indexOf(title) > -1) {
+                    foundItems.push(item);
+                }
+            });
+
+            if (foundItems.length > 0) {
+                foundSectionItems.push({
+                    title: section.title,
+                    items: foundItems,
+                });
+            }
+        });
+
+        return foundSectionItems;
+    }
 }

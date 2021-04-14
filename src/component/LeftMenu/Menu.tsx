@@ -35,7 +35,7 @@ const LeftMenuItem = styled(Link)`
 
 function Menu() {
     return (
-        <LeftMenuWrapper>
+        <LeftMenuWrapper className="d-none d-md-block">
             <LeftMenuItemWrapper>
                 <LeftMenuItem href="/test">
                     <img className="logo" src="media/icons/publications.png" alt="Publications"/>

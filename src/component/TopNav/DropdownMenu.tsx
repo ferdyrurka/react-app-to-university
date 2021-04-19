@@ -9,6 +9,7 @@ import { Breakpoint } from "../../styledHelpers/Breakpoint";
 import {shallowEqual, useDispatch, useSelector } from "react-redux";
 import {findItemsAction} from "../../store/DropdownMenuItemsStore";
 import {IState} from "../../reducers";
+import {MenuSectionItems} from "./MenuItems";
 
 const DropdownMenuContainer = styled.div`
   @media only screen and (min-width: ${Breakpoint["tablet"]}) {
@@ -125,7 +126,7 @@ const DropdownMenu : FC = () => {
     const [wrapperRef, dropdownOpen, toggleDropdown, closeDropdown] = useDropdown();
     const dispatch: Dispatch<any> = useDispatch()
 
-    let items: {title: string, items: {icon: string, title: string, href: string, description: string}[]}[] = useSelector(
+    let items: MenuSectionItems[] = useSelector(
         (state: IState) => state.items.items,
         shallowEqual
     );

@@ -1,8 +1,9 @@
-import {MenuItems} from "../../component/TopNav/MenuItems";
+import {MenuItems, MenuSectionItems} from "../../component/TopNav/MenuItems";
 import {FIND_ITEMS} from "../../actions/DropdownMenuItemsActions";
+import {DropdownMenuItemsAction} from "../../store/DropdownMenuItemsStore";
 
 export interface IDropdownMenuItemsReducer {
-    items: {title: string, items: {icon: string, title: string, href: string, description: string}[]}[]
+    items: MenuSectionItems[],
 }
 
 const defaultState = (): IDropdownMenuItemsReducer => ({
@@ -10,7 +11,7 @@ const defaultState = (): IDropdownMenuItemsReducer => ({
 });
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default (state = defaultState(), action: {type: string|null, searchValue: string|null}) => {
+export default (state = defaultState(), action: DropdownMenuItemsAction) => {
     if (action.type === FIND_ITEMS) {
         if (action.searchValue !== null) {
             return {

@@ -1,4 +1,4 @@
-const ITEMS = [
+const ITEMS: MenuSectionItems[] = [
     {
         title: 'Platform',
         items: [
@@ -94,22 +94,34 @@ const ITEMS = [
     },
 ];
 
+export interface MenuSectionItems {
+    title: string,
+    items: MenuItem[],
+}
+
+export interface MenuItem {
+    icon: string,
+    title: string,
+    href: string,
+    description: string,
+}
+
 export class MenuItems
 {
-    public static getAll(): {title: string, items: {icon: string, title: string, href: string, description: string}[]}[]
+    public static getAll(): MenuSectionItems[]
     {
         return ITEMS;
     }
 
     public static findByTitle(
         title: string
-    ): {title: string, items: {icon: string, title: string, href: string, description: string}[]}[]  {
+    ): MenuSectionItems[]  {
         title = title.toLowerCase();
 
-        const foundSectionItems: { title: string; items: { icon: string; title: string; href: string; description: string; }[]; }[] = [];
+        const foundSectionItems: MenuSectionItems[] = [];
 
         ITEMS.forEach((section) => {
-            const foundItems: { icon: string; title: string; href: string; description: string; }[] = [];
+            const foundItems: MenuItem[] = [];
 
             section.items.forEach((item) => {
                 if (item.title.toLowerCase().indexOf(title) > -1) {

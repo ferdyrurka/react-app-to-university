@@ -1,12 +1,14 @@
-import React, {BaseSyntheticEvent} from "react";
+import React, {BaseSyntheticEvent, Dispatch, FC, useCallback} from "react";
 import styled from "styled-components";
 import useDropdown from "react-dropdown-hook";
 import {Colors} from "../../styledHelpers/Colors";
 import {FontSize} from "../../styledHelpers/FontSizes";
 import {CenterItems, FlexRow, FlexColumn} from "../../styledHelpers/Grid";
 import {Link} from "../../styledHelpers/Components";
-import {MenuItems} from "./MenuItems";
 import { Breakpoint } from "../../styledHelpers/Breakpoint";
+import {shallowEqual, useDispatch, useSelector } from "react-redux";
+import {findItemsAction} from "../../store/DropdownMenuItemsStore";
+import {IState} from "../../reducers";
 
 const DropdownMenuContainer = styled.div`
   @media only screen and (min-width: ${Breakpoint["tablet"]}) {
@@ -119,19 +121,21 @@ const DropdownMenuLogoutWrapper = styled(FlexRow)`
   }
 `;
 
-function DropdownMenu() {
+const DropdownMenu : FC = () => {
     const [wrapperRef, dropdownOpen, toggleDropdown, closeDropdown] = useDropdown();
+    const dispatch: Dispatch<any> = useDispatch()
 
-    let items = MenuItems.getAll();
+    let items: {title: string, items: {icon: string, title: string, href: string, description: string}[]}[] = useSelector(
+        (state: IState) => state.items.items,
+        shallowEqual
+    );
 
-    const findItems = (input: BaseSyntheticEvent) => {
-        const searchValue = input.target.value;
-
-        if (searchValue.length > 2) {
-            items = MenuItems.findByTitle(searchValue);
-            console.log('searcg');
-        }
-    };
+    const findItems = useCallback(
+        (input: BaseSyntheticEvent) => {
+            dispatch(findItemsAction(input))
+        },
+        [dispatch]
+    );
 
     return (
         <DropdownMenuContainer ref={wrapperRef}>
@@ -150,7 +154,7 @@ function DropdownMenu() {
 
             {dropdownOpen &&
                 <DropdownMenuWrapper>
-                    <DropdownMenuFilter type="text" placeholder="Filter..." onInput={findItems}/>
+                    <DropdownMenuFilter type="text" placeholder="Filter..." onInput={(event) => findItems(event)}/>
 
                     {items.map(
                         (itemGroup, index) => {

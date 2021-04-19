@@ -1,4 +1,4 @@
-const items = [
+const ITEMS = [
     {
         title: 'Platform',
         items: [
@@ -98,19 +98,21 @@ export class MenuItems
 {
     public static getAll(): {title: string, items: {icon: string, title: string, href: string, description: string}[]}[]
     {
-        return items;
+        return ITEMS;
     }
 
     public static findByTitle(
         title: string
     ): {title: string, items: {icon: string, title: string, href: string, description: string}[]}[]  {
+        title = title.toLowerCase();
+
         const foundSectionItems: { title: string; items: { icon: string; title: string; href: string; description: string; }[]; }[] = [];
 
-        items.forEach((section) => {
+        ITEMS.forEach((section) => {
             const foundItems: { icon: string; title: string; href: string; description: string; }[] = [];
 
             section.items.forEach((item) => {
-                if (item.title.indexOf(title) > -1) {
+                if (item.title.toLowerCase().indexOf(title) > -1) {
                     foundItems.push(item);
                 }
             });

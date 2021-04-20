@@ -1,15 +1,14 @@
-import React, {BaseSyntheticEvent, Dispatch, FC, useCallback} from "react";
+import React, {BaseSyntheticEvent, Dispatch, useCallback} from "react";
 import styled from "styled-components";
 import useDropdown from "react-dropdown-hook";
 import {Colors} from "../../styledHelpers/Colors";
-import {FontSize} from "../../styledHelpers/FontSizes";
-import {CenterItems, FlexRow, FlexColumn} from "../../styledHelpers/Grid";
-import {Link} from "../../styledHelpers/Components";
-import { Breakpoint } from "../../styledHelpers/Breakpoint";
+import {CenterItems, FlexRow} from "../../styledHelpers/Grid";
+import {Breakpoint} from "../../styledHelpers/Breakpoint";
 import {shallowEqual, useDispatch, useSelector } from "react-redux";
 import {findItemsAction} from "../../store/DropdownMenuItemsStore";
 import {IState} from "../../reducers";
-import {MenuSectionItems} from "./MenuItems";
+import {MenuSectionItems} from "../../reducers/DropdownMenu/MenuItems";
+import DropdownMenuSectionItems from "./DropdownMenuSectionItems";
 
 const DropdownMenuContainer = styled.div`
   @media only screen and (min-width: ${Breakpoint["tablet"]}) {
@@ -71,43 +70,6 @@ const DropdownMenuFilter = styled.input`
   margin: 0 10px;
 `;
 
-const DropdownMenuIcon = styled.img`
-  width: 25px;
-  height: auto;
-  margin-right: 15px;
-`;
-
-const DropdownMenuItemsWrapper = styled.div`
-  padding: 0 10px;
-  
-  &:nth-child(3) {
-    border-bottom: 1px solid ${Colors.lightGrey};
-    padding-bottom: 5px;
-  }
-  
-  .section-name {
-    margin-top: 5px;
-
-    span {
-      font-size: ${FontSize["12"]};
-      color: ${Colors.grey};
-    }
-  }
-`;
-
-const DropdownMenuItemWrapper = styled(Link)`
-  display: flex;
-  align-items: center;
-  margin: 10px 0 0 0;
-  color: ${Colors.black};
-  
-  .description {
-    color: ${Colors.blue};
-    font-size: ${FontSize["14"]};
-    margin-top: 5px;
-  }
-`;
-
 const DropdownMenuLogoutWrapper = styled(FlexRow)`
   justify-content: center;
   align-items: center;
@@ -122,7 +84,7 @@ const DropdownMenuLogoutWrapper = styled(FlexRow)`
   }
 `;
 
-const DropdownMenu : FC = () => {
+function DropdownMenu() {
     const [wrapperRef, dropdownOpen, toggleDropdown, closeDropdown] = useDropdown();
     const dispatch: Dispatch<any> = useDispatch()
 
@@ -158,39 +120,13 @@ const DropdownMenu : FC = () => {
                     <DropdownMenuFilter type="text" placeholder="Filter..." onInput={(event) => findItems(event)}/>
 
                     {items.map(
-                        (itemGroup, index) => {
-                            const title = itemGroup.title;
-
+                        (itemsGroup: MenuSectionItems, index: number) => {
                             return (
-                                <DropdownMenuItemsWrapper key={index}>
-                                    <div className="section-name">
-                                        <span>{title}</span>
-                                    </div>
-
-                                    {itemGroup.items.map(
-                                        (item: { icon: string, title: string, href: string, description: string }, index: number) => {
-                                            return (
-                                                <DropdownMenuItemWrapper key={index} href={item.href}>
-                                                    <DropdownMenuIcon src={item.icon} alt={item.title.toLowerCase()}/>
-
-                                                    {item.description.length === 0 &&
-                                                        <span>{item.title}</span>
-                                                    }
-
-                                                    {item.description.length > 0 &&
-                                                        <FlexColumn>
-                                                            <span>{item.title}</span>
-                                                            <span className="description">{item.description}</span>
-                                                        </FlexColumn>
-                                                    }
-                                                </DropdownMenuItemWrapper>
-                                            );
-                                        }
-                                    )}
-                                </DropdownMenuItemsWrapper>
+                                <DropdownMenuSectionItems itemsGroup={itemsGroup} index={index}/>
                             );
                         }
                     )}
+
                     <DropdownMenuLogoutWrapper onClick={closeDropdown}>
                         <img className="icon" src="media/icons/logout.png" alt="logout"/>
                         <span>Logout</span>

@@ -1,4 +1,4 @@
-import {MenuItems, MenuSectionItems} from "../../component/TopNav/MenuItems";
+import {MenuItems, MenuSectionItems} from "./MenuItems";
 import {FIND_ITEMS} from "../../actions/DropdownMenuItemsActions";
 import {DropdownMenuItemsAction} from "../../store/DropdownMenuItemsStore";
 

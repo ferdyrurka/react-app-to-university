@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { Breakpoint } from "../../styledHelpers/Breakpoint";
 import {Colors} from "../../styledHelpers/Colors";
 import {FontSize} from "../../styledHelpers/FontSizes";
-import {TopNavIcon} from "./Shared";
 
 const TopNavNotificationWrapper = styled.div`
   display: flex;
@@ -20,6 +19,15 @@ const TopNavNotificationWrapper = styled.div`
     padding-left: 5px;
   }
 `;
+
+const TopNavIcon = styled.a`
+  img {
+    max-width: 25px;
+    height: 23px;
+    margin-right: 15px;
+  }
+`;
+
 
 const TopNavCircleIcon = styled(TopNavIcon)`
   width: 42px;

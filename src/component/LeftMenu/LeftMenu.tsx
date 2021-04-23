@@ -11,6 +11,7 @@ const LeftMenuContainer = styled.div`
   
   @media only screen and (max-width: ${Breakpoint["tablet"]}) {
     max-width: 600px;
+    width: 100%;
     margin: 0 auto 15px auto;
   }
 

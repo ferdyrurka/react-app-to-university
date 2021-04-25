@@ -1,11 +1,11 @@
-import React, {BaseSyntheticEvent, Dispatch, useCallback} from "react";
+import React, {BaseSyntheticEvent, Dispatch, useCallback, useEffect} from "react";
 import styled from "styled-components";
 import useDropdown from "react-dropdown-hook";
 import {Colors} from "../../styledHelpers/Colors";
 import {CenterItems, FlexRow} from "../../styledHelpers/Grid";
 import {Breakpoint} from "../../styledHelpers/Breakpoint";
 import {shallowEqual, useDispatch, useSelector } from "react-redux";
-import {findItemsAction} from "../../store/DropdownMenuItemsStore";
+import {findItemsAction, reset} from "../../store/DropdownMenuItemsStore";
 import {IState} from "../../reducers";
 import {MenuSectionItems} from "../../reducers/DropdownMenu/MenuItems";
 import DropdownMenuSectionItems from "./DropdownMenuSectionItems";
@@ -87,6 +87,12 @@ const DropdownMenuLogoutWrapper = styled(FlexRow)`
 function DropdownMenu() {
     const [wrapperRef, dropdownOpen, toggleDropdown, closeDropdown] = useDropdown();
     const dispatch: Dispatch<any> = useDispatch()
+
+    useEffect(() => {
+        if (!dropdownOpen) {
+            dispatch(reset());
+        }
+    }, [dropdownOpen, dispatch])
 
     let items: MenuSectionItems[] = useSelector(
         (state: IState) => state.items.items,

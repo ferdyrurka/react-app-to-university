@@ -21,3 +21,10 @@ export function findItemsAction(input: BaseSyntheticEvent): DropdownMenuItemsAct
         searchValue: null,
     };
 }
+
+export function reset() {
+    return {
+        type: null,
+        searchValue: null,
+    };
+}

@@ -1,6 +1,8 @@
-import React from "react";
+import React, {useState} from "react";
 import styled from "styled-components";
 import {Colors} from "../../styledHelpers/Colors";
+import {fetchCurrentUser} from "../../actions/UserAction";
+import {User} from "../../entities/user";
 
 const PersonalDataWrapper = styled.div`
   padding: 5px;
@@ -24,13 +26,19 @@ const PersonalDataWrapper = styled.div`
 
 
 function PersonalData() {
-    return (
-        <PersonalDataWrapper>
-            <h2>Humberta Swift</h2>
+    const [user, setUser] = useState<User | null>(null);
+    fetchCurrentUser().then(currentUser => setUser(currentUser));
 
-            <div className="job-title-wrapper">
-                <span>Job title - Company</span>
-            </div>
+    return (
+
+        <PersonalDataWrapper>
+            {user != null && <h2>{user.name}</h2>}
+
+            {user != null &&
+                <div className="job-title-wrapper">
+                    <span>{user.company.catchPhrase}</span>
+                </div>
+            }
         </PersonalDataWrapper>
     );
 }

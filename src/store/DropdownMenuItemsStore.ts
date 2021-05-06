@@ -1,4 +1,4 @@
-import {FIND_ITEMS} from "../actions/DropdownMenuItemsActions";
+import {FIND_ITEMS} from "./DropdownMenuItemsActions";
 import {BaseSyntheticEvent} from "react";
 
 export interface DropdownMenuItemsAction {

@@ -128,7 +128,7 @@ function DropdownMenu() {
                     {items.map(
                         (itemsGroup: MenuSectionItems, index: number) => {
                             return (
-                                <DropdownMenuSectionItems itemsGroup={itemsGroup} index={index}/>
+                                <DropdownMenuSectionItems itemsGroup={itemsGroup} key={index.toString()}/>
                             );
                         }
                     )}

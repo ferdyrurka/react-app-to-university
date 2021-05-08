@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import styled from "styled-components";
 import {Colors} from "../../styledHelpers/Colors";
 import {fetchCurrentUser} from "../../actions/UserAction";
@@ -11,6 +11,16 @@ const PersonalDataWrapper = styled.div`
     font-weight: bold;
     color: ${Colors.blue};
     text-align: center;
+  }
+
+  .avatar-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+
+    img {
+      border-radius: 50%;
+    }
   }
 
   .job-title-wrapper {
@@ -27,11 +37,15 @@ const PersonalDataWrapper = styled.div`
 
 function PersonalData() {
     const [user, setUser] = useState<User | null>(null);
-    fetchCurrentUser().then(currentUser => setUser(currentUser));
+    useEffect(() => {
+        fetchCurrentUser().then(currentUser => setUser(currentUser));
+    }, []);
 
     return (
-
         <PersonalDataWrapper>
+            <div className="avatar-wrapper">
+                {user != null && <img src="https://via.placeholder.com/65/92c952" alt="avatar logo"/>}
+            </div>
             {user != null && <h2>{user.name}</h2>}
 
             {user != null &&

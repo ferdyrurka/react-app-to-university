@@ -27,14 +27,13 @@ const DropdownMenuIcon = styled.img`
 
 interface DropdownMenuItemProps {
     item: MenuItem,
-    index: number,
 }
 
 const DropdownMenuItem: FC<DropdownMenuItemProps> = props => {
     const item = props.item;
 
     return (
-        <DropdownMenuItemWrapper key={props.index} href={item.href}>
+        <DropdownMenuItemWrapper href={item.href}>
             <DropdownMenuIcon src={item.icon} alt={item.title.toLowerCase()}/>
 
             {item.description.length === 0 &&

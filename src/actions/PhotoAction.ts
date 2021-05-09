@@ -13,14 +13,6 @@ export async function fetchPhotoById(id: number): Promise<Photo | null> {
 
 export function fetchLatestPhotos(): Promise<Photo[] | []> {
     return fetch(environment.apiUrl + 'photos')
-        .then(response => response.json())
-        .then(response => {
-            response.splice(0, 1);
-            return response;
-        })
-        .then(response => {
-            response.splice(3);
-            return response;
-        });
+        .then(response => response.json());
 }
 

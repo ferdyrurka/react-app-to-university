@@ -39,7 +39,7 @@ const WorkspaceItemTitle = styled.div`
   margin-left: 85px;
   height: 53px;
   font-size: ${FontSize["16"]};
-  
+
   h3 {
     overflow: hidden;
     text-overflow: ellipsis;
@@ -51,7 +51,7 @@ const WorkspaceItemTitle = styled.div`
 
 const WorkspaceItemShortData = styled(FlexRow)`
   margin-bottom: 8px;
-  
+
   .single-data {
     width: 50%;
 
@@ -59,7 +59,7 @@ const WorkspaceItemShortData = styled(FlexRow)`
       color: ${Colors.grey};
       font-size: ${FontSize["12"]};
     }
-    
+
     img {
       height: 13px;
       max-width: 18px;
@@ -75,6 +75,13 @@ const WorkspaceItemDate = styled.div`
   }
 `;
 
+const WorkspaceItemWrapper = styled.div`
+  width: 240px;
+  min-width: 240px;
+  height: 195px;
+  margin-right: 8px;
+`;
+
 export interface WorkspaceProps {
     title: string,
     backgroundImageUrl: string,
@@ -85,24 +92,19 @@ export interface WorkspaceProps {
     usersCount: number,
 }
 
-const WorkspaceItem: FC<WorkspaceProps> = props => {
-    const WorkspaceItemWrapper = styled.div`
-      width: 240px;
-      min-width: 240px;
-      height: 195px;
-      margin-right: 8px;
-
-      .background-image-wrapper {
-        background-image: url("${props.backgroundImageUrl}");
-        height: 80px;
-        border-top-left-radius: 5px;
-        border-top-right-radius: 5px;
-      }
+const BackgroundImageWrapper = styled.div.attrs((props: any) => ({
+    backgroundImageUrl: props.backgroundImageUrl !== undefined ? props.backgroundImageUrl : '',
+}))`
+      background-image: url("${props => props.backgroundImageUrl}");
+      height: 80px;
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
     `;
 
+const WorkspaceItem: FC<WorkspaceProps> = props => {
     return (
         <WorkspaceItemWrapper>
-            <div className="background-image-wrapper"></div>
+            <BackgroundImageWrapper backgroundImageUrl={props.backgroundImageUrl}/>
             <WorkspaceItemDataWrapper>
                 <WorkspaceItemTypeBigIcon>
                     <img src={props.imagUrl} alt={props.type}/>

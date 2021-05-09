@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import styled from "styled-components";
 import {Colors} from "../../styledHelpers/Colors";
-import {fetchCurrentUser} from "../../actions/UserAction";
+import {fetchUserById} from "../../actions/UserAction";
 import {User} from "../../entities/user";
 
 const PersonalDataWrapper = styled.div`
@@ -38,13 +38,13 @@ const PersonalDataWrapper = styled.div`
 function PersonalData() {
     const [user, setUser] = useState<User | null>(null);
     useEffect(() => {
-        fetchCurrentUser().then(currentUser => setUser(currentUser));
+        fetchUserById(1).then(currentUser => setUser(currentUser));
     }, []);
 
     return (
         <PersonalDataWrapper>
             <div className="avatar-wrapper">
-                {user != null && <img src="https://via.placeholder.com/65/92c952" alt="avatar logo"/>}
+                {user != null && <img src={user.avatarUrl} alt="avatar logo"/>}
             </div>
             {user != null && <h2>{user.name}</h2>}
 

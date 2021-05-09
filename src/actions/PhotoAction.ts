@@ -1,13 +1,13 @@
 import {environment} from "../tools/environment";
-import {Post} from "../entities/post";
+import {Photo} from "../entities/photo";
 
-export function fetchMainPost(): Promise<Post | null> {
-    return fetch(environment.apiUrl + 'posts/1')
+export function fetchMainPhoto(): Promise<Photo | null> {
+    return fetch(environment.apiUrl + 'photos/1')
         .then(response => response.json());
 }
 
-export function fetchLatestPosts(): Promise<Post[] | []> {
-    return fetch(environment.apiUrl + 'posts')
+export function fetchLatestPhotos(): Promise<Photo[] | []> {
+    return fetch(environment.apiUrl + 'photos')
         .then(response => response.json())
         .then(response => {
             response.splice(0, 1);

@@ -3,11 +3,11 @@ import {Colors} from "../../styledHelpers/Colors";
 import {FontSize} from "../../styledHelpers/FontSizes";
 import MainArticleData from "./MainArticleData";
 import {useEffect, useState} from "react";
-import {Post} from "../../entities/post";
+import {Post} from "../../entities/Post";
 import {fetchLatestPosts, fetchMainPost} from "../../actions/PostAction";
-import {Photo} from "../../entities/photo";
+import {Photo} from "../../entities/Photo";
 import {fetchLatestPhotos, fetchMainPhoto} from "../../actions/PhotoAction";
-import {User} from "../../entities/user";
+import {User} from "../../entities/User";
 import {fetchUsers} from "../../actions/UserAction";
 
 const ArticleContainer = styled.div`

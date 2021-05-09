@@ -1,5 +1,5 @@
 import {environment} from "../tools/environment";
-import {Photo} from "../entities/photo";
+import {Photo} from "../entities/Photo";
 
 export function fetchMainPhoto(): Promise<Photo | null> {
     return fetch(environment.apiUrl + 'photos/1')

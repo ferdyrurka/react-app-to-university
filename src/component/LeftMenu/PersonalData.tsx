@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import styled from "styled-components";
 import {Colors} from "../../styledHelpers/Colors";
 import {fetchUserById} from "../../actions/UserAction";
-import {User} from "../../entities/user";
+import {User} from "../../entities/User";
 
 const PersonalDataWrapper = styled.div`
   padding: 5px;

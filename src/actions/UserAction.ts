@@ -1,5 +1,5 @@
 import {environment} from "../tools/environment";
-import {User} from "../entities/user";
+import {User} from "../entities/User";
 import {fetchPhotoById} from "./PhotoAction";
 
 export function fetchUserById(id: number): Promise<User|null> {

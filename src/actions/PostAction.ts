@@ -1,5 +1,5 @@
 import {environment} from "../tools/environment";
-import {Post} from "../entities/post";
+import {Post} from "../entities/Post";
 
 export function fetchMainPost(): Promise<Post | null> {
     return fetch(environment.apiUrl + 'posts/1')

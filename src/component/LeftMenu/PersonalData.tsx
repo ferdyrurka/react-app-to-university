@@ -19,6 +19,8 @@ const PersonalDataWrapper = styled.div`
     margin-bottom: 10px;
 
     img {
+      width: 75px;
+      height: auto;
       border-radius: 50%;
     }
   }
@@ -44,7 +46,7 @@ function PersonalData() {
     return (
         <PersonalDataWrapper>
             <div className="avatar-wrapper">
-                {user != null && <img src={user.avatarUrl} alt="avatar logo"/>}
+                {user != null && <img src={user.avatarUrl ? user.avatarUrl : ''} alt="avatar logo"/>}
             </div>
             {user != null && <h2>{user.name}</h2>}
 

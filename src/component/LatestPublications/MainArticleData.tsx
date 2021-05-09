@@ -3,12 +3,12 @@ import styled from "styled-components";
 import {Colors} from "../../styledHelpers/Colors";
 import {FontSize} from "../../styledHelpers/FontSizes";
 import {FlexRow} from "../../styledHelpers/Grid";
+import {User} from "../../entities/user";
 
 interface MainArticleDataProps {
     title: string,
     date: string,
-    avatarUrl: string,
-    articleMaintainerFullName: string | undefined,
+    user: User | null | undefined,
     articleImgUrl: string | null,
     customClassName: string,
 }
@@ -63,8 +63,8 @@ const MainArticleData: FC<MainArticleDataProps> = props => {
 
                 <div className="d-flex align-items-center mt-1">
                     <SmallText>{props.date}</SmallText>
-                    <AvatarImage src={props.avatarUrl} alt="avatar"/>
-                    <SmallText>{props.articleMaintainerFullName === undefined ? 'Lack' : props.articleMaintainerFullName}</SmallText>
+                    <AvatarImage src={(props.user && props.user.avatarUrl) ? props.user.avatarUrl : ''} alt="avatar"/>
+                    <SmallText>{props.user ? props.user.name : 'Lack'}</SmallText>
                 </div>
             </div>
         </MainArticleDataWrapper>

@@ -95,11 +95,11 @@ export interface WorkspaceProps {
 const BackgroundImageWrapper = styled.div.attrs((props: any) => ({
     backgroundImageUrl: props.backgroundImageUrl !== undefined ? props.backgroundImageUrl : '',
 }))`
-      background-image: url("${props => props.backgroundImageUrl}");
-      height: 80px;
-      border-top-left-radius: 5px;
-      border-top-right-radius: 5px;
-    `;
+  background-image: url("${props => props.backgroundImageUrl}");
+  height: 80px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+`;
 
 const WorkspaceItem: FC<WorkspaceProps> = props => {
     return (

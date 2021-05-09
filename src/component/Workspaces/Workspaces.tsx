@@ -3,6 +3,7 @@ import {Colors} from "../../styledHelpers/Colors";
 import {FontSize} from "../../styledHelpers/FontSizes";
 import WorkspaceItem from "./WorkspaceItem";
 import {FlexRow} from "../../styledHelpers/Grid";
+import {Item, ITEMS} from "./WorkspaceItems";
 
 const WorkspacesContainer = styled.div`
 
@@ -33,25 +34,21 @@ const Workspaces = function () {
             <WorkspacesTitle>Workspaces</WorkspacesTitle>
 
             <WorkspacesItemsWrapper>
-                <WorkspaceItem
-                    title="Client contract client contract client contract"
-                    backgroundImageUrl="https://via.placeholder.com/240x80/0000FF/808080"
-                    imagUrl="/media/icons/house2.png"
-                    smallImageUrl="/media/icons/house.png"
-                    type="Contract"
-                    updateDate="Last update 2 days ago"
-                    usersCount={150}
-                />
-
-                <WorkspaceItem
-                    title="Client contract client contract client contract"
-                    backgroundImageUrl="https://via.placeholder.com/240x80/0000FF/808080"
-                    imagUrl="/media/icons/house2.png"
-                    smallImageUrl="/media/icons/house.png"
-                    type="Contract"
-                    updateDate="Last update 2 days ago"
-                    usersCount={150}
-                />
+                {ITEMS.map((item: Item, index: number) => {
+                        return (
+                            <WorkspaceItem
+                                title={item.title}
+                                backgroundImageUrl={item.backgroundImageUrl}
+                                imagUrl={item.imagUrl}
+                                smallImageUrl={item.smallImageUrl}
+                                type={item.type}
+                                updateDate="Last update 2 days ago"
+                                usersCount={150}
+                                key={index}
+                            />
+                        );
+                    }
+                )}
             </WorkspacesItemsWrapper>
         </WorkspacesContainer>
     );

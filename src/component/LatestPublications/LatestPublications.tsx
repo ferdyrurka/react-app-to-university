@@ -4,9 +4,9 @@ import {FontSize} from "../../styledHelpers/FontSizes";
 import MainArticleData from "./MainArticleData";
 import {useEffect, useState} from "react";
 import {Post} from "../../entities/post";
-import {fetchLatestPosts} from "../../actions/PostAction";
+import {fetchLatestPosts, fetchMainPost} from "../../actions/PostAction";
 import {Photo} from "../../entities/photo";
-import {fetchLatestPhotos} from "../../actions/PhotoAction";
+import {fetchLatestPhotos, fetchMainPhoto} from "../../actions/PhotoAction";
 import {User} from "../../entities/user";
 import {fetchUsers} from "../../actions/UserAction";
 
@@ -15,8 +15,10 @@ const ArticleContainer = styled.div`
   box-shadow: 0 7px 7px -2px ${Colors.grey};
 `;
 
-const MainArticleWrapper = styled.div`
-  background-image: url("https://via.placeholder.com/300/0000FF/808080");
+const MainArticleWrapper = styled.div.attrs((props: any) => ({
+    backgroundImageUrl: props.backgroundImageUrl !== undefined ? props.backgroundImageUrl : '',
+}))`
+  background-image: url("${props => props.backgroundImageUrl}");
   min-height: 300px;
   position: relative;
   border-top-left-radius: 5px;
@@ -59,26 +61,33 @@ const LatestArticleWrapper = styled.div`
 function LatestPublications() {
     const [posts, setPosts] = useState<Post[]>([]);
     const [photos, setPhotos] = useState<Photo[]>([]);
+    const [post, setPost] = useState<Post | null>(null);
+    const [photo, setPhoto] = useState<Photo | null>(null);
     const [users, setUsers] = useState<User[]>([]);
 
     useEffect(() => {
         fetchLatestPosts().then(posts => setPosts(posts));
-        fetchUsers().then(users => setUsers(users));
+        fetchMainPost().then(post => setPost(post));
+
         fetchLatestPhotos().then(photos => setPhotos(photos));
-    }, [users]);
+        fetchMainPhoto().then(photo => setPhoto(photo));
+
+        fetchUsers().then(users => setUsers(users));
+    }, []);
 
     return (
         <ArticleContainer className="row">
-            <MainArticleWrapper className="col-12 col-xl-4">
-                <MainArticleData
-                    title="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ipsum ipsum, feugiat tincidunt nunc vel, dictum tempus velit. Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-                    avatarUrl="https://via.placeholder.com/20/09f.png/fff"
-                    articleMaintainerFullName="John Doe"
-                    date="7 jan. 2020"
-                    articleImgUrl={null}
-                    customClassName="main-article-data"
-                />
-            </MainArticleWrapper>
+            {(post !== null && photo !== null && users.length > 0) &&
+                <MainArticleWrapper className="col-12 col-xl-4" backgroundImageUrl={photo.url}>
+                    <MainArticleData
+                        title={post.title}
+                        user={users.find((user: User) => user.id === post.userId)}
+                        date="7 jan. 2020"
+                        articleImgUrl={null}
+                        customClassName="main-article-data"
+                    />
+                </MainArticleWrapper>
+            }
             <LatestArticleWrapper className="col-12 col-xl-8">
                 <h1>Latest publications</h1>
 
@@ -88,8 +97,7 @@ function LatestPublications() {
                             <MainArticleData
                                 key={post.id}
                                 title={post.title}
-                                avatarUrl={photos[index].thumbnailUrl}
-                                articleMaintainerFullName={users.find((user: User) => user.id === post.userId)?.name}
+                                user={users.find((user: User) => user.id === post.userId)}
                                 date="7 jan. 2020"
                                 articleImgUrl={photos[index].url}
                                 customClassName=""

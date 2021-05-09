@@ -5,7 +5,7 @@ export interface User {
 
     email: string;
 
-    company: {catchPhrase: string};
+    company: { catchPhrase: string };
 
-    avatarUrl: string;
+    avatarUrl: string | null;
 }

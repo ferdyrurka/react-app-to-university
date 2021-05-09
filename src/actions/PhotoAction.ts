@@ -6,6 +6,11 @@ export function fetchMainPhoto(): Promise<Photo | null> {
         .then(response => response.json());
 }
 
+export async function fetchPhotoById(id: number): Promise<Photo | null> {
+    const response = await fetch(environment.apiUrl + 'photos/' + id);
+    return await response.json();
+}
+
 export function fetchLatestPhotos(): Promise<Photo[] | []> {
     return fetch(environment.apiUrl + 'photos')
         .then(response => response.json())

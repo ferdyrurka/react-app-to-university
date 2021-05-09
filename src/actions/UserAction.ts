@@ -16,12 +16,10 @@ export function fetchUsers(): Promise<User[]> {
     return fetch(environment.apiUrl + 'users')
         .then(response => response.json())
         .then(response => {
-            console.log('start');
             response.map(async (user: User) => {
                 const photo = await fetchPhotoById(user.id);
                 user.avatarUrl = photo?.thumbnailUrl !== undefined ? photo.thumbnailUrl : null;
             });
-            console.log('end');
 
             return response;
         });

@@ -10,6 +10,7 @@ import {Route, BrowserRouter as Router, Switch,} from 'react-router-dom';
 import LatestPublications from "./component/LatestPublications/LatestPublications";
 import { Breakpoint } from './styledHelpers/Breakpoint';
 import Workspaces from "./component/Workspaces/Workspaces";
+import Comments from "./component/ResumeYourWork/Comments";
 
 const Container = styled.div`
   margin: 0 auto;
@@ -46,6 +47,7 @@ function App() {
                                         <Route path="/" exact>
                                             <LatestPublications/>
                                             <Workspaces/>
+                                            <Comments/>
                                         </Route>
                                     </Switch>
                                 </div>

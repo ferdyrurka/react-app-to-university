@@ -92,7 +92,7 @@ function DropdownMenu() {
         if (!dropdownOpen) {
             dispatch(reset());
         }
-    }, [dropdownOpen, dispatch])
+    }, [dropdownOpen, dispatch]);
 
     let items: MenuSectionItems[] = useSelector(
         (state: IState) => state.items.items,

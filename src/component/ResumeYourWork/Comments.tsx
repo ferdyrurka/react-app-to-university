@@ -2,14 +2,18 @@ import styled from "styled-components";
 import {Colors} from "../../styledHelpers/Colors";
 import {FontSize} from "../../styledHelpers/FontSizes";
 import {SearchInput} from "../../styledHelpers/Components";
-import React, {useEffect, useState} from "react";
+import React, {Dispatch, useCallback, useEffect, useState} from "react";
 import useDropdown from "react-dropdown-hook";
 import {Comment} from "../../entities/Comment";
 import {fetchComments} from "../../actions/CommentAction";
 import CommentItem from "./CommentItem";
 import {FlexColumn} from "../../styledHelpers/Grid";
+import {shallowEqual, useDispatch, useSelector} from "react-redux";
+import {IState} from "../../reducers";
+import {findCommentsAction} from "../../store/FilterCommentsStore";
+import {Followed} from "../../reducers/Comments/Followed";
 
-const itemsCount: number = 10;
+const ITEMS_COUNT: number = 10;
 
 const CommentsContainer = styled.section`
   margin-top: 15px;
@@ -102,27 +106,64 @@ const CommentsPaginatorWrapper = styled.div`
 
 function Comments() {
     const [wrapperRef, dropdownOpen, toggleDropdown, closeDropdown] = useDropdown();
-    const [comments, setComments] = useState<Comment[]>([]);
-    const [page, setPage] = useState({current: 0, max: 0, min: 0});
+    const [sourceComments, setSourceComments] = useState<Comment[]>([]);
+
+    const [currentPage, setCurrentPage] = useState(0);
+    const dispatch: Dispatch<any> = useDispatch();
+    let followed = Followed.ALL;
 
     useEffect(() => {
         fetchComments().then(comments => {
-            setComments(comments);
-            setPage({
-                current: 1,
-                max: Math.floor(comments.length / 10),
-                min: comments.length > 0 ? 1 : 0
-            });
+            setCurrentPage(comments.length > 0 ? 1 : 0);
+            setSourceComments(comments);
+
+            dispatch(findCommentsAction(
+                (document.getElementById('filter_title') as HTMLInputElement),
+                comments,
+                followed,
+            ));
         });
-    }, []);
+    }, [dispatch, followed]);
+
+    let comments: Comment[] = useSelector(
+        (state: IState) => state.comments.comments,
+        shallowEqual
+    );
+
+    let page: {min: number, max: number} = useSelector(
+        (state: IState) => state.comments.page,
+        shallowEqual
+    );
 
     const changePage = (toPage: number) => {
         if (toPage > page.max || toPage < page.min) {
             return;
         }
 
-        setPage({...page, current: toPage});
+        setCurrentPage(toPage);
     };
+
+    const changeFollowed = useCallback(
+        (newFollowed: Followed) => {
+            dispatch(findCommentsAction(
+                (document.getElementById('filter_title') as HTMLInputElement),
+                sourceComments,
+                newFollowed,
+            ));
+        },
+        [dispatch, sourceComments]
+    );
+
+    const changeFilterTitle = useCallback(
+        () => {
+            dispatch(findCommentsAction(
+                (document.getElementById('filter_title') as HTMLInputElement),
+                comments,
+                followed,
+            ));
+        },
+        [dispatch, comments, followed]
+    );
 
     return (
         <CommentsContainer>
@@ -130,7 +171,7 @@ function Comments() {
                 <CommentsTitle>Resume your work</CommentsTitle>
 
                 <CommentsActionWrapper ref={wrapperRef}>
-                    <FilterInput placeholder="Filter by title"></FilterInput>
+                    <FilterInput placeholder="Filter by title" id="filter_title" onInput={() => changeFilterTitle()}/>
                     <FilterAction onClick={!dropdownOpen ? toggleDropdown : closeDropdown}>
                         <img className="signal-icon" src="media/icons/ecosystem.png" alt="arrow down"/>
                         <span>Followed</span>
@@ -140,11 +181,11 @@ function Comments() {
                     <FilterActionDropdownMenu>
                         <FilterActionOption>
                             <label htmlFor="my">My</label>
-                            <input type="checkbox" id="my"/>
+                            <input type="radio" name="followed" id="my" onClick={() => changeFollowed(Followed.MY)}/>
                         </FilterActionOption>
                         <FilterActionOption>
-                            <label htmlFor="oldest">Oldest</label>
-                            <input type="checkbox" id="oldest"/>
+                            <label htmlFor="all">All</label>
+                            <input type="radio" name="followed" id="all" onClick={() => changeFollowed(Followed.ALL)}/>
                         </FilterActionOption>
                     </FilterActionDropdownMenu>
                     }
@@ -153,20 +194,20 @@ function Comments() {
 
             {comments.length > 0 &&
             <CommentsWrapper>
-                {comments.slice(page.current * itemsCount, (page.current + 1) * itemsCount).map(comment => {
+                {comments.slice((currentPage - 1) * ITEMS_COUNT, currentPage * ITEMS_COUNT).map(comment => {
                     return (
-                        <CommentItem comment={comment}/>
+                        <CommentItem key={comment.id.toString()} comment={comment}/>
                     );
                 })}
                 <CommentsPaginatorWrapper>
                     <div>
-                        <span onClick={() => changePage(--page.current)}>PREVIOUS</span>
+                        <span onClick={() => changePage(currentPage - 1)}>PREVIOUS</span>
 
                         {
                             Array.from(Array(page.max).keys()).map((value: number) => {
                                 ++value;
 
-                                if (value === page.current) {
+                                if (value === currentPage) {
                                     return (
                                         <span className="active"> {value} </span>
                                     );
@@ -178,13 +219,13 @@ function Comments() {
                                     );
                                 }
 
-                                if ((value > 1 && value === (page.current - 1)) || value === (page.current + 1)) {
+                                if ((value > 1 && value === (currentPage - 1)) || value === (currentPage + 1)) {
                                     return (
                                         <span onClick={() => changePage(value)}> {value} </span>
                                     );
                                 }
 
-                                if ((value >= 2 && value === (page.current - 2)) || value === (page.current + 2)) {
+                                if ((value >= 2 && value === (currentPage - 2)) || value === (currentPage + 2)) {
                                     return (
                                         <span> ... </span>
                                     );
@@ -194,7 +235,7 @@ function Comments() {
                             })
                         }
 
-                        <span onClick={() => changePage(++page.current)}>NEXT</span>
+                        <span onClick={() => changePage(currentPage + 1)}>NEXT</span>
                     </div>
                 </CommentsPaginatorWrapper>
             </CommentsWrapper>

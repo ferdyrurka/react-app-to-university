@@ -3,6 +3,7 @@ import styled from "styled-components";
 import {Colors} from "../../styledHelpers/Colors";
 import {fetchUserById} from "../../actions/UserAction";
 import {User} from "../../entities/User";
+import {CurrentUser} from "../../tools/CurrentUser";
 
 const PersonalDataWrapper = styled.div`
   padding: 5px;
@@ -40,7 +41,7 @@ const PersonalDataWrapper = styled.div`
 function PersonalData() {
     const [user, setUser] = useState<User | null>(null);
     useEffect(() => {
-        fetchUserById(1).then(currentUser => setUser(currentUser));
+        fetchUserById(CurrentUser.getCurrentUserId()).then(currentUser => setUser(currentUser));
     }, []);
 
     return (

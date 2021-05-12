@@ -1,9 +1,11 @@
 import styled from "styled-components";
-import {FC} from "react";
+import {FC, useEffect, useState} from "react";
 import {Comment} from "../../entities/Comment";
 import {Colors} from "../../styledHelpers/Colors";
 import {FontSize} from "../../styledHelpers/FontSizes";
 import {FlexRow} from "../../styledHelpers/Grid";
+import {User} from "../../entities/User";
+import {fetchUserById} from "../../actions/UserAction";
 
 const CommentItemWrapper = styled.div`
   width: 100%;
@@ -57,14 +59,21 @@ interface CommentItemProps {
 }
 
 const CommentItem: FC<CommentItemProps> = props => {
+    const [user, setUser] = useState<User | null>(null);
+
+    useEffect(() => {
+        fetchUserById(props.comment.postId).then(user => setUser(user));
+    }, [props.comment.postId]);
+
     return (
         <CommentItemWrapper>
             <h2>{props.comment.name}</h2>
             <p>{props.comment.body}</p>
+            {user !== null &&
             <CommentItemsAbout>
                 <div className="item">
-                    <img src="media/icons/ecosystem.png" alt="job position icon"/>
-                    <span>Subsid corp.</span>
+                    <img src={user.avatarUrl ? user.avatarUrl : ''} alt="user avatar"/>
+                    <span>{user.company.catchPhrase}</span>
                     <span>+</span>
                 </div>
 
@@ -75,9 +84,10 @@ const CommentItem: FC<CommentItemProps> = props => {
                 </div>
 
                 <div className="item last-item">
-                    <span>Updated 3 days ago by John Doe</span>
+                    <span>Updated 3 days ago by {user.name}</span>
                 </div>
             </CommentItemsAbout>
+            }
         </CommentItemWrapper>
     );
 }

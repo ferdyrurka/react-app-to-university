@@ -25,14 +25,13 @@ const DropdownMenuItemsWrapper = styled.div`
 
 interface DropdownMenuSectionItemsProps {
     itemsGroup: MenuSectionItems,
-    index: number,
 }
 
 const DropdownMenuSectionItems: FC<DropdownMenuSectionItemsProps> = props => {
     const itemGroup = props.itemsGroup;
 
     return (
-        <DropdownMenuItemsWrapper key={props.index}>
+        <DropdownMenuItemsWrapper>
             <div className="section-name">
                 <span>{itemGroup.title}</span>
             </div>
@@ -40,7 +39,7 @@ const DropdownMenuSectionItems: FC<DropdownMenuSectionItemsProps> = props => {
             {itemGroup.items.map(
                 (item: MenuItem, index: number) => {
                     return (
-                        <DropdownMenuItem index={index} item={item}/>
+                        <DropdownMenuItem key={index.toString()} item={item}/>
                     );
                 }
             )}

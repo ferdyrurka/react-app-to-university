@@ -1,4 +1,4 @@
-import {FIND_ITEMS} from "../actions/DropdownMenuItemsActions";
+import {FIND_ITEMS} from "./DropdownMenuItemsActions";
 import {BaseSyntheticEvent} from "react";
 
 export interface DropdownMenuItemsAction {
@@ -16,6 +16,13 @@ export function findItemsAction(input: BaseSyntheticEvent): DropdownMenuItemsAct
         };
     }
 
+    return {
+        type: null,
+        searchValue: null,
+    };
+}
+
+export function reset() {
     return {
         type: null,
         searchValue: null,

@@ -73,8 +73,8 @@ const ITEMS: MenuSectionItems[] = [
         title: 'Account',
         items: [
             {
-                icon: 'TODO',
-                title: 'TODO',
+                icon: 'media/icons/privacy.png',
+                title: 'Your profile',
                 href: 'test',
                 description: 'See profile',
             },

@@ -1,5 +1,5 @@
 import {MenuItems, MenuSectionItems} from "./MenuItems";
-import {FIND_ITEMS} from "../../actions/DropdownMenuItemsActions";
+import {FIND_ITEMS} from "../../store/DropdownMenuItemsActions";
 import {DropdownMenuItemsAction} from "../../store/DropdownMenuItemsStore";
 
 export interface IDropdownMenuItemsReducer {

@@ -1,6 +1,9 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import styled from "styled-components";
 import {Colors} from "../../styledHelpers/Colors";
+import {fetchUserById} from "../../actions/UserAction";
+import {User} from "../../entities/User";
+import {CurrentUser} from "../../tools/CurrentUser";
 
 const PersonalDataWrapper = styled.div`
   padding: 5px;
@@ -9,6 +12,18 @@ const PersonalDataWrapper = styled.div`
     font-weight: bold;
     color: ${Colors.blue};
     text-align: center;
+  }
+
+  .avatar-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+
+    img {
+      width: 75px;
+      height: auto;
+      border-radius: 50%;
+    }
   }
 
   .job-title-wrapper {
@@ -24,13 +39,23 @@ const PersonalDataWrapper = styled.div`
 
 
 function PersonalData() {
+    const [user, setUser] = useState<User | null>(null);
+    useEffect(() => {
+        fetchUserById(CurrentUser.getCurrentUserId()).then(currentUser => setUser(currentUser));
+    }, []);
+
     return (
         <PersonalDataWrapper>
-            <h2>Humberta Swift</h2>
-
-            <div className="job-title-wrapper">
-                <span>Job title - Company</span>
+            <div className="avatar-wrapper">
+                {user != null && <img src={user.avatarUrl ? user.avatarUrl : ''} alt="avatar logo"/>}
             </div>
+            {user != null && <h2>{user.name}</h2>}
+
+            {user != null &&
+                <div className="job-title-wrapper">
+                    <span>{user.company.catchPhrase}</span>
+                </div>
+            }
         </PersonalDataWrapper>
     );
 }

@@ -10,7 +10,7 @@ import CommentItem from "./CommentItem";
 import {FlexColumn} from "../../styledHelpers/Grid";
 import {shallowEqual, useDispatch, useSelector} from "react-redux";
 import {IState} from "../../reducers";
-import {findCommentsAction} from "../../store/FilterCommentsStore";
+import {findCommentsAction, nextCommentsPageAction} from "../../store/FilterCommentsStore";
 import {Followed} from "../../reducers/Comments/Followed";
 
 const ITEMS_COUNT: number = 10;
@@ -72,9 +72,12 @@ const FilterActionDropdownMenu = styled.div`
 `;
 
 const FilterActionOption = styled.div`
-  input {
-    margin-left: 15px;
+  span {
     cursor: pointer;
+  }
+  
+  .active {
+    font-weight: bold;
   }
 `;
 
@@ -108,40 +111,34 @@ function Comments() {
     const [wrapperRef, dropdownOpen, toggleDropdown, closeDropdown] = useDropdown();
     const [sourceComments, setSourceComments] = useState<Comment[]>([]);
 
-    const [currentPage, setCurrentPage] = useState(0);
     const dispatch: Dispatch<any> = useDispatch();
-    let followed = Followed.ALL;
 
     useEffect(() => {
         fetchComments().then(comments => {
-            setCurrentPage(comments.length > 0 ? 1 : 0);
             setSourceComments(comments);
 
             dispatch(findCommentsAction(
                 (document.getElementById('filter_title') as HTMLInputElement),
                 comments,
-                followed,
+                Followed.ALL,
             ));
         });
-    }, [dispatch, followed]);
+    }, [dispatch]);
 
     let comments: Comment[] = useSelector(
         (state: IState) => state.comments.comments,
         shallowEqual
     );
 
-    let page: {min: number, max: number} = useSelector(
+    let page: {current: number, min: number, max: number} = useSelector(
         (state: IState) => state.comments.page,
         shallowEqual
     );
 
-    const changePage = (toPage: number) => {
-        if (toPage > page.max || toPage < page.min) {
-            return;
-        }
-
-        setCurrentPage(toPage);
-    };
+    let followed: Followed = useSelector(
+        (state: IState) => state.comments.followed,
+        shallowEqual
+    );
 
     const changeFollowed = useCallback(
         (newFollowed: Followed) => {
@@ -165,6 +162,19 @@ function Comments() {
         [dispatch, comments, followed]
     );
 
+    const nextPage = useCallback(
+        (toPage: number) => {
+            dispatch(nextCommentsPageAction(
+                (document.getElementById('filter_title') as HTMLInputElement),
+                comments,
+                followed,
+                toPage,
+                page.current,
+            ));
+        },
+        [dispatch, comments, followed, page]
+    );
+
     return (
         <CommentsContainer>
             <CommentsNavWrapper>
@@ -180,12 +190,10 @@ function Comments() {
                     {dropdownOpen &&
                     <FilterActionDropdownMenu>
                         <FilterActionOption>
-                            <label htmlFor="my">My</label>
-                            <input type="radio" name="followed" id="my" onClick={() => changeFollowed(Followed.MY)}/>
+                            <span className={followed === Followed.MY ? 'active' : ''} onClick={() => changeFollowed(Followed.MY)}>My</span>
                         </FilterActionOption>
                         <FilterActionOption>
-                            <label htmlFor="all">All</label>
-                            <input type="radio" name="followed" id="all" onClick={() => changeFollowed(Followed.ALL)}/>
+                            <span className={followed === Followed.ALL ? 'active' : ''} onClick={() => changeFollowed(Followed.ALL)}>All</span>
                         </FilterActionOption>
                     </FilterActionDropdownMenu>
                     }
@@ -194,20 +202,22 @@ function Comments() {
 
             {comments.length > 0 &&
             <CommentsWrapper>
-                {comments.slice((currentPage - 1) * ITEMS_COUNT, currentPage * ITEMS_COUNT).map(comment => {
+                {comments.slice((page.current - 1) * ITEMS_COUNT, page.current * ITEMS_COUNT).map(comment => {
                     return (
                         <CommentItem key={comment.id.toString()} comment={comment}/>
                     );
                 })}
                 <CommentsPaginatorWrapper>
                     <div>
-                        <span onClick={() => changePage(currentPage - 1)}>PREVIOUS</span>
+                        {page.min >= 1 &&
+                        <span onClick={() => nextPage(page.current - 1)}>PREVIOUS</span>
+                        }
 
                         {
                             Array.from(Array(page.max).keys()).map((value: number) => {
                                 ++value;
 
-                                if (value === currentPage) {
+                                if (value === page.current) {
                                     return (
                                         <span className="active"> {value} </span>
                                     );
@@ -215,17 +225,17 @@ function Comments() {
 
                                 if (value === page.min || value === page.max) {
                                     return (
-                                        <span onClick={() => changePage(value)}> {value} </span>
+                                        <span onClick={() => nextPage(value)}> {value} </span>
                                     );
                                 }
 
-                                if ((value > 1 && value === (currentPage - 1)) || value === (currentPage + 1)) {
+                                if ((value > 1 && value === (page.current - 1)) || value === (page.current + 1)) {
                                     return (
-                                        <span onClick={() => changePage(value)}> {value} </span>
+                                        <span onClick={() => nextPage(value)}> {value} </span>
                                     );
                                 }
 
-                                if ((value >= 2 && value === (currentPage - 2)) || value === (currentPage + 2)) {
+                                if ((value >= 2 && value === (page.current - 2)) || value === (page.current + 2)) {
                                     return (
                                         <span> ... </span>
                                     );
@@ -235,7 +245,9 @@ function Comments() {
                             })
                         }
 
-                        <span onClick={() => changePage(currentPage + 1)}>NEXT</span>
+                        {page.min >= 1 &&
+                        <span onClick={() => nextPage(page.current + 1)}>NEXT</span>
+                        }
                     </div>
                 </CommentsPaginatorWrapper>
             </CommentsWrapper>

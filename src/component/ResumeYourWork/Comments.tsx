@@ -155,11 +155,11 @@ function Comments() {
         () => {
             dispatch(findCommentsAction(
                 (document.getElementById('filter_title') as HTMLInputElement),
-                comments,
+                sourceComments,
                 followed,
             ));
         },
-        [dispatch, comments, followed]
+        [dispatch, sourceComments, followed]
     );
 
     const nextPage = useCallback(
@@ -214,30 +214,30 @@ function Comments() {
                         }
 
                         {
-                            Array.from(Array(page.max).keys()).map((value: number) => {
+                            Array.from(Array(page.max).keys()).map((value: number, index: number) => {
                                 ++value;
 
                                 if (value === page.current) {
                                     return (
-                                        <span className="active"> {value} </span>
+                                        <span key={index} className="active"> {value} </span>
                                     );
                                 }
 
                                 if (value === page.min || value === page.max) {
                                     return (
-                                        <span onClick={() => nextPage(value)}> {value} </span>
+                                        <span key={index} onClick={() => nextPage(value)}> {value} </span>
                                     );
                                 }
 
                                 if ((value > 1 && value === (page.current - 1)) || value === (page.current + 1)) {
                                     return (
-                                        <span onClick={() => nextPage(value)}> {value} </span>
+                                        <span key={index} onClick={() => nextPage(value)}> {value} </span>
                                     );
                                 }
 
                                 if ((value >= 2 && value === (page.current - 2)) || value === (page.current + 2)) {
                                     return (
-                                        <span> ... </span>
+                                        <span key={index}> ... </span>
                                     );
                                 }
 

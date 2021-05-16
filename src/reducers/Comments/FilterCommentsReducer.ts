@@ -63,17 +63,16 @@ export default (state = defaultState(), action: FilterCommentsAction) => {
         }
 
         return {
-            comments: action.comments,
+            ...state,
             page: {
                 max,
                 current: action.toPage,
                 min: firstPage,
             },
-            followed: action.followed,
         }
     }
 
-    return defaultState();
+    return state;
 }
 
 function getMinMaxPage(comments: Comment[]) {

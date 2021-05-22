@@ -1,11 +1,9 @@
-import React, {FC, useEffect, useState} from "react";
+import React, {FC} from "react";
 import styled from "styled-components";
 import {Colors} from "../../styledHelpers/Colors";
 import {FontSize} from "../../styledHelpers/FontSizes";
 import {FlexRow} from "../../styledHelpers/Grid";
 import {User} from "../../entities/User";
-import {Photo} from "../../entities/Photo";
-import {fetchPhotoById} from "../../actions/PhotoAction";
 
 interface MainArticleDataProps {
     title: string,
@@ -52,14 +50,6 @@ const ArticleTitle = styled.h2`
 `;
 
 const MainArticleData: FC<MainArticleDataProps> = props => {
-    const [avatar, setAvatar] = useState<Photo | null>(null);
-
-    useEffect(() => {
-        if (props.user) {
-            fetchPhotoById(props.user.id).then(photo => setAvatar(photo));
-        }
-    }, [props]);
-
     return (
         <MainArticleDataWrapper className={props.customClassName}>
             {props.articleImgUrl !== null &&
@@ -73,10 +63,13 @@ const MainArticleData: FC<MainArticleDataProps> = props => {
 
                 <div className="d-flex align-items-center mt-1">
                     <SmallText>{props.date}</SmallText>
-                    {avatar !== null &&
-                        <AvatarImage src={avatar.url} alt="avatar"/>
+                    {props.user &&
+                        <AvatarImage src={props.user.avatarUrl ? props.user.avatarUrl : ''} alt="avatar"/>
                     }
-                    <SmallText>{props.user ? props.user.name : 'Lack'}</SmallText>
+
+                    {props.user &&
+                        <SmallText>{props.user.name}</SmallText>
+                    }
                 </div>
             </div>
         </MainArticleDataWrapper>

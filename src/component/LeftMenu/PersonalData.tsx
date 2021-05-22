@@ -1,9 +1,9 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import styled from "styled-components";
 import {Colors} from "../../styledHelpers/Colors";
-import {fetchUserById} from "../../actions/UserAction";
 import {User} from "../../entities/User";
-import {CurrentUser} from "../../tools/CurrentUser";
+import {shallowEqual, useSelector} from "react-redux";
+import {IState} from "../../reducers";
 
 const PersonalDataWrapper = styled.div`
   padding: 5px;
@@ -39,19 +39,22 @@ const PersonalDataWrapper = styled.div`
 
 
 function PersonalData() {
-    const [user, setUser] = useState<User | null>(null);
-    useEffect(() => {
-        fetchUserById(CurrentUser.getCurrentUserId()).then(currentUser => setUser(currentUser));
-    }, []);
+    let user: User | null = useSelector(
+        (state: IState) => state.currentUser.user,
+        shallowEqual
+    );
 
     return (
         <PersonalDataWrapper>
-            <div className="avatar-wrapper">
-                {user != null && <img src={user.avatarUrl ? user.avatarUrl : ''} alt="avatar logo"/>}
-            </div>
-            {user != null && <h2>{user.name}</h2>}
+            {user !== null &&
+                <div className="avatar-wrapper">
+                    {<img src={user.avatarUrl !== null ? user.avatarUrl : ''} alt="avatar logo"/>}
+                </div>
+            }
 
-            {user != null &&
+            {user !== null && <h2>{user.name}</h2>}
+
+            {user !== null &&
                 <div className="job-title-wrapper">
                     <span>{user.company.catchPhrase}</span>
                 </div>

@@ -6,9 +6,10 @@ import {useEffect, useState} from "react";
 import {Post} from "../../entities/Post";
 import {fetchLatestPosts, fetchMainPost} from "../../actions/PostAction";
 import {Photo} from "../../entities/Photo";
-import {fetchLatestPhotos, fetchMainPhoto} from "../../actions/PhotoAction";
+import {fetchMainPhoto} from "../../actions/PhotoAction";
 import {User} from "../../entities/User";
-import {fetchUsers} from "../../actions/UserAction";
+import {shallowEqual, useSelector} from "react-redux";
+import {IState} from "../../reducers";
 
 const ArticleContainer = styled.div`
   margin: 0;
@@ -60,20 +61,24 @@ const LatestArticleWrapper = styled.div`
 
 function LatestPublications() {
     const [posts, setPosts] = useState<Post[]>([]);
-    const [photos, setPhotos] = useState<Photo[]>([]);
     const [post, setPost] = useState<Post | null>(null);
     const [photo, setPhoto] = useState<Photo | null>(null);
-    const [users, setUsers] = useState<User[]>([]);
 
     useEffect(() => {
         fetchLatestPosts().then(posts => setPosts(posts));
         fetchMainPost().then(post => setPost(post));
-
-        fetchLatestPhotos().then(photos => setPhotos(photos));
         fetchMainPhoto().then(photo => setPhoto(photo));
-
-        fetchUsers().then(users => setUsers(users));
     }, []);
+
+    let users: User[] = useSelector(
+        (state: IState) => state.users.users,
+        shallowEqual
+    );
+
+    let photos: Photo[] = useSelector(
+        (state: IState) => state.photos.photos,
+        shallowEqual
+    );
 
     return (
         <ArticleContainer className="row">

@@ -1,11 +1,12 @@
 import styled from "styled-components";
-import {FC, useEffect, useState} from "react";
+import {FC} from "react";
 import {Comment} from "../../entities/Comment";
 import {Colors} from "../../styledHelpers/Colors";
 import {FontSize} from "../../styledHelpers/FontSizes";
 import {FlexRow} from "../../styledHelpers/Grid";
 import {User} from "../../entities/User";
-import {fetchUserById} from "../../actions/UserAction";
+import {shallowEqual, useSelector} from "react-redux";
+import {IState} from "../../reducers";
 
 const CommentItemWrapper = styled.div`
   width: 100%;
@@ -59,17 +60,18 @@ interface CommentItemProps {
 }
 
 const CommentItem: FC<CommentItemProps> = props => {
-    const [user, setUser] = useState<User | null>(null);
-
-    useEffect(() => {
-        fetchUserById(props.comment.postId).then(user => setUser(user));
-    }, [props.comment.postId]);
+    let user: User | undefined;
+    let users: User[] = useSelector(
+        (state: IState) => state.users.users,
+        shallowEqual
+    );
+    user = users.find(user => user.id === props.comment.postId);
 
     return (
         <CommentItemWrapper>
             <h2>{props.comment.name}</h2>
             <p>{props.comment.body}</p>
-            {user !== null &&
+            {user !== undefined &&
             <CommentItemsAbout>
                 <div className="item">
                     <img src={user.avatarUrl ? user.avatarUrl : ''} alt="user avatar"/>

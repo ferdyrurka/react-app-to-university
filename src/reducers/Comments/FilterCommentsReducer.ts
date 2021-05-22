@@ -20,14 +20,14 @@ const defaultState = (): IFilterCommentsReducer => ({
 // eslint-disable-next-line import/no-anonymous-default-export
 export default (state = defaultState(), action: FilterCommentsAction) => {
     if (action.type === FIND_COMMENTS) {
-        let comments = action.comments;
+        let comments = action.FIND_COMMENTS.comments;
 
-        if (action.followed !== Followed.ALL) {
-            comments = CommentsFollowedFilter.findByFollowed(comments, action.followed);
+        if (action.FIND_COMMENTS.followed !== Followed.ALL) {
+            comments = CommentsFollowedFilter.findByFollowed(comments, action.FIND_COMMENTS.followed);
         }
 
-        if (action.title !== null) {
-            comments = CommentsTitleFilter.findByTitle(comments, action.title);
+        if (action.FIND_COMMENTS.title !== null) {
+            comments = CommentsTitleFilter.findByTitle(comments, action.FIND_COMMENTS.title);
         }
 
         const [max, firstPage] = getMinMaxPage(comments);
@@ -39,26 +39,26 @@ export default (state = defaultState(), action: FilterCommentsAction) => {
                 current: firstPage,
                 min: firstPage,
             },
-            followed: action.followed,
+            followed: action.FIND_COMMENTS.followed,
         }
     }
 
     if (action.type === NEXT_PAGE) {
-        if (action.toPage === null) {
+        if (action.NEXT_PAGE.toPage === null) {
             return defaultState();
         }
 
-        const [max, firstPage] = getMinMaxPage(action.comments);
+        const [max, firstPage] = getMinMaxPage(action.NEXT_PAGE.comments);
 
-        if (action.toPage > max || action.toPage < firstPage) {
+        if (action.NEXT_PAGE.toPage > max || action.NEXT_PAGE.toPage < firstPage) {
             return {
-                comments: action.comments,
+                comments: action.NEXT_PAGE.comments,
                 page: {
                     max,
-                    current: action.currentPage,
+                    current: action.NEXT_PAGE.currentPage,
                     min: firstPage,
                 },
-                followed: action.followed,
+                followed: action.NEXT_PAGE.followed,
             }
         }
 
@@ -66,7 +66,7 @@ export default (state = defaultState(), action: FilterCommentsAction) => {
             ...state,
             page: {
                 max,
-                current: action.toPage,
+                current: action.NEXT_PAGE.toPage,
                 min: firstPage,
             },
         }

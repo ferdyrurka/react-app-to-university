@@ -165,7 +165,6 @@ function Comments() {
     const nextPage = useCallback(
         (toPage: number) => {
             dispatch(nextCommentsPageAction(
-                (document.getElementById('filter_title') as HTMLInputElement),
                 comments,
                 followed,
                 toPage,

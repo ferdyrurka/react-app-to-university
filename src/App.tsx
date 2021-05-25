@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './App.css';
 import LeftMenu from "./component/LeftMenu/LeftMenu";
 import TopNav from "./component/TopNav/TopNav";
@@ -8,7 +8,10 @@ import {Provider} from 'react-redux';
 import Test from "./component/NotFound/Test";
 import {Route, BrowserRouter as Router, Switch,} from 'react-router-dom';
 import { Breakpoint } from './styledHelpers/Breakpoint';
-import HomePage from "./component/HomePage/HomePage";
+import HomePage from "./containers/HomePage/HomePage";
+import Profile from './containers/Profile/Profile';
+import {fetchUserById} from "./actions/UserAction";
+import {CurrentUser} from "./tools/CurrentUser";
 
 const Container = styled.div`
   margin: 0 auto;
@@ -29,6 +32,10 @@ const Container = styled.div`
 `;
 
 function App() {
+    useEffect(() => {
+        fetchUserById(CurrentUser.getCurrentUserId());
+    }, [])
+
     return (
         <Provider store={store}>
             <Router>
@@ -44,6 +51,9 @@ function App() {
                                     <Switch>
                                         <Route path="/" exact>
                                             <HomePage/>
+                                        </Route>
+                                        <Route path="/profile" exact>
+                                            <Profile/>
                                         </Route>
                                     </Switch>
                                 </div>

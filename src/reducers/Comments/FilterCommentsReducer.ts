@@ -1,4 +1,4 @@
-import {Comment} from "../../entities/Comment";
+import {IComment} from "../../entities/Comment";
 import {FilterCommentsAction} from "../../store/FilterCommentsStore";
 import {FIND_COMMENTS, NEXT_PAGE} from "../../store/FilterCommentsActions";
 import {Followed} from "./Followed";
@@ -6,7 +6,7 @@ import {CommentsTitleFilter} from "./CommentsTitleFilter";
 import {CommentsFollowedFilter} from "./CommentsFollowedFilter";
 
 export interface IFilterCommentsReducer {
-    comments: Comment[],
+    comments: IComment[],
     page: {current: number, max: number, min: number},
     followed: Followed,
 }
@@ -75,7 +75,7 @@ export default (state = defaultState(), action: FilterCommentsAction) => {
     return state;
 }
 
-function getMinMaxPage(comments: Comment[]) {
+function getMinMaxPage(comments: IComment[]) {
     let max = 0;
 
     if (comments.length > 10) {

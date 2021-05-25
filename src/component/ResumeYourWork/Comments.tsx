@@ -4,7 +4,7 @@ import {FontSize} from "../../styledHelpers/FontSizes";
 import {SearchInput} from "../../styledHelpers/Components";
 import React, {Dispatch, useCallback, useEffect, useState} from "react";
 import useDropdown from "react-dropdown-hook";
-import {Comment} from "../../entities/Comment";
+import {IComment} from "../../entities/Comment";
 import {fetchComments} from "../../actions/CommentAction";
 import CommentItem from "./CommentItem";
 import {FlexColumn} from "../../styledHelpers/Grid";
@@ -109,7 +109,7 @@ const CommentsPaginatorWrapper = styled.div`
 
 function Comments() {
     const [wrapperRef, dropdownOpen, toggleDropdown, closeDropdown] = useDropdown();
-    const [sourceComments, setSourceComments] = useState<Comment[]>([]);
+    const [sourceComments, setSourceComments] = useState<IComment[]>([]);
 
     const dispatch: Dispatch<any> = useDispatch();
 
@@ -125,7 +125,7 @@ function Comments() {
         });
     }, [dispatch]);
 
-    let comments: Comment[] = useSelector(
+    let comments: IComment[] = useSelector(
         (state: IState) => state.comments.comments,
         shallowEqual
     );

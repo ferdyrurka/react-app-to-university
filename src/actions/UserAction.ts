@@ -1,14 +1,14 @@
 import {environment} from "../tools/environment";
-import {User} from "../entities/User";
+import {IUser} from "../entities/User";
 import {fetchPhotoById} from "./PhotoAction";
 import {fetchUsersAction} from "../store/UsersActions";
 import store from "../tools/store";
 import {fetchCurrentUserAction} from "../store/CurrentUserActions";
 
-export function fetchUserById(id: number): Promise<User|null> {
+export function fetchUserById(id: number): Promise<IUser|null> {
     return fetch(environment.apiUrl + 'users/' + id)
         .then(response => response.json())
-        .then(async (response: User) => {
+        .then(async (response: IUser) => {
             if (response.id === undefined) {
                 return null;
             }
@@ -22,12 +22,12 @@ export function fetchUserById(id: number): Promise<User|null> {
         });
 }
 
-export function fetchUsers(): Promise<User[]> {
+export function fetchUsers(): Promise<IUser[]> {
     return fetch(environment.apiUrl + 'users')
         .then(response => response.json())
         .then(async response => {
             await Promise.all(
-                response.map(async (user: User) => {
+                response.map(async (user: IUser) => {
                     const photo = await fetchPhotoById(user.id);
                     user.avatarUrl = photo?.thumbnailUrl !== undefined ? photo.thumbnailUrl : null;
                 })

@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import {Colors} from "../../styledHelpers/Colors";
-import {User} from "../../entities/User";
+import {IUser} from "../../entities/User";
 import {shallowEqual, useSelector} from "react-redux";
 import {IState} from "../../reducers";
 
@@ -39,7 +39,7 @@ const PersonalDataWrapper = styled.div`
 
 
 function PersonalData() {
-    let user: User | null = useSelector(
+    let user: IUser | null = useSelector(
         (state: IState) => state.currentUser.user,
         shallowEqual
     );
@@ -48,7 +48,7 @@ function PersonalData() {
         <PersonalDataWrapper>
             {user !== null &&
                 <div className="avatar-wrapper">
-                    {<img src={user.avatarUrl !== null ? user.avatarUrl : ''} alt="avatar logo"/>}
+                    <a href="/profile"><img src={user.avatarUrl !== null ? user.avatarUrl : ''} alt="avatar logo"/></a>
                 </div>
             }
 

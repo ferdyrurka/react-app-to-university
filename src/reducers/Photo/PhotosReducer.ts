@@ -1,9 +1,9 @@
-import {Photo} from "../../entities/Photo";
+import {IPhoto} from "../../entities/Photo";
 import {FETCH_PHOTOS} from "../../store/PhotosStore";
 import {IPhotosActions} from "../../store/PhotosActions";
 
 export interface IPhotosReducer {
-    photos: Photo[],
+    photos: IPhoto[],
 }
 
 const defaultState = (): IPhotosReducer => ({

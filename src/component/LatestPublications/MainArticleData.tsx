@@ -3,12 +3,12 @@ import styled from "styled-components";
 import {Colors} from "../../styledHelpers/Colors";
 import {FontSize} from "../../styledHelpers/FontSizes";
 import {FlexRow} from "../../styledHelpers/Grid";
-import {User} from "../../entities/User";
+import {IUser} from "../../entities/User";
 
 interface MainArticleDataProps {
     title: string,
     date: string,
-    user: User | null | undefined,
+    user: IUser | null | undefined,
     articleImgUrl: string | null,
     customClassName: string,
 }

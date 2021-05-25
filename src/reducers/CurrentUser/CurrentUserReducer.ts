@@ -1,9 +1,9 @@
-import {User} from "../../entities/User";
+import {IUser} from "../../entities/User";
 import {FETCH_CURRENT_USER} from "../../store/CurrentUserStore";
 import {ICurrentUserActions} from "../../store/CurrentUserActions";
 
 export interface ICurrentUserReducer {
-    user: User | null,
+    user: IUser | null,
 }
 
 const defaultState = (): ICurrentUserReducer => ({

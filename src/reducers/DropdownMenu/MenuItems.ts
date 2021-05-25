@@ -75,7 +75,7 @@ const ITEMS: MenuSectionItems[] = [
             {
                 icon: 'media/icons/privacy.png',
                 title: 'Your profile',
-                href: 'test',
+                href: 'profile',
                 description: 'See profile',
             },
             {

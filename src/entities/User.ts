@@ -1,11 +1,15 @@
-export interface User {
+export interface IUser {
     id: number;
 
     name: string;
 
     email: string;
 
-    company: { catchPhrase: string };
+    phone: string;
+
+    address: { city: string };
+
+    company: { catchPhrase: string, name: string };
 
     avatarUrl: string | null;
 }

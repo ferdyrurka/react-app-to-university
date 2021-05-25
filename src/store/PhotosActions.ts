@@ -1,14 +1,14 @@
 import {FETCH_PHOTOS} from "./PhotosStore";
-import {Photo} from "../entities/Photo";
+import {IPhoto} from "../entities/Photo";
 
 export interface IPhotosActions {
     FETCH_PHOTOS: {
-        photos: Photo[],
+        photos: IPhoto[],
     };
     type: string | null,
 }
 
-export function fetchPhotosAction(photos: Photo[]) {
+export function fetchPhotosAction(photos: IPhoto[]) {
     return {
         FETCH_PHOTOS: {
             photos,

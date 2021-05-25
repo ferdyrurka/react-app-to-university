@@ -1,4 +1,4 @@
-import {Comment} from "../entities/Comment";
+import {IComment} from "../entities/Comment";
 import {FIND_COMMENTS, NEXT_PAGE} from "./FilterCommentsActions";
 import {Followed} from "../reducers/Comments/Followed";
 
@@ -6,10 +6,10 @@ export interface FilterCommentsAction {
     FIND_COMMENTS: {
         followed: Followed,
         title: string | null,
-        comments: Comment[],
+        comments: IComment[],
     };
     NEXT_PAGE: {
-        comments: Comment[],
+        comments: IComment[],
         followed: Followed,
         toPage: number,
         currentPage: number,
@@ -19,7 +19,7 @@ export interface FilterCommentsAction {
 
 export function findCommentsAction(
     input: HTMLInputElement,
-    comments: Comment[],
+    comments: IComment[],
     followed: Followed,
 ) {
     return {
@@ -33,7 +33,7 @@ export function findCommentsAction(
 }
 
 export function nextCommentsPageAction(
-    comments: Comment[],
+    comments: IComment[],
     followed: Followed,
     toPage: number,
     currentPage: number,

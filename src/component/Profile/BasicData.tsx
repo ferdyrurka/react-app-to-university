@@ -12,8 +12,6 @@ interface BasicDataProps {
 }
 
 const BasicDataContainer = styled(Carousel)`
-  display: flex;
-
   height: 150px;
   padding: 30px 0;
 `;

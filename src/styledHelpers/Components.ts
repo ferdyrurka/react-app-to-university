@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import {FlexRow} from "./Grid";
 
 export const Link = styled.a`
   text-decoration: none;
@@ -30,7 +31,7 @@ export const SearchInput = styled.input`
   }
 `;
 
-export const Carousel = styled.div`
+export const Carousel = styled(FlexRow)`
   flex-wrap: nowrap;
   overflow-x: scroll;
   -ms-overflow-style: none;

@@ -4,6 +4,7 @@ import {IState} from "../../reducers";
 import BasicData from "../../component/Profile/BasicData";
 import styled from "styled-components";
 import {Colors} from "../../styledHelpers/Colors";
+import Action from "../../component/Profile/Action";
 
 const ProfileContainer = styled.main`
   padding: 0 20px;
@@ -18,6 +19,7 @@ function Profile() {
 
     return (
       <ProfileContainer>
+          <Action/>
           <BasicData user={user}/>
       </ProfileContainer>
     );

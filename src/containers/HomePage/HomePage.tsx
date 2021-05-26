@@ -1,14 +1,12 @@
-import LatestPublications from "../LatestPublications/LatestPublications";
-import Workspaces from "../Workspaces/Workspaces";
-import Comments from "../ResumeYourWork/Comments";
+import LatestPublications from "../../component/LatestPublications/LatestPublications";
+import Workspaces from "../../component/Workspaces/Workspaces";
+import Comments from "../../component/ResumeYourWork/Comments";
 import React, {useEffect} from "react";
-import {fetchUserById, fetchUsers} from "../../actions/UserAction";
-import {CurrentUser} from "../../tools/CurrentUser";
+import {fetchUsers} from "../../actions/UserAction";
 import {fetchLatestPhotos} from "../../actions/PhotoAction";
 
 function HomePage() {
     useEffect(() => {
-        fetchUserById(CurrentUser.getCurrentUserId());
         fetchUsers();
         fetchLatestPhotos();
     }, [])

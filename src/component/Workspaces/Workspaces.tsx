@@ -2,8 +2,8 @@ import styled from "styled-components";
 import {Colors} from "../../styledHelpers/Colors";
 import {FontSize} from "../../styledHelpers/FontSizes";
 import WorkspaceItem from "./WorkspaceItem";
-import {FlexRow} from "../../styledHelpers/Grid";
 import {Item, ITEMS} from "./WorkspaceItems";
+import {CarouselFlex} from "../../styledHelpers/Components";
 
 const WorkspacesContainer = styled.div`
 
@@ -16,24 +16,12 @@ const WorkspacesTitle = styled.h1`
   font-weight: 700;
 `;
 
-const WorkspacesItemsWrapper = styled(FlexRow)`
-  overflow-x: scroll;
-  flex-wrap: nowrap;
-  
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-  
-  &::-webkit-scrollbar {
-    display: none; 
-  }
-`;
-
 const Workspaces = function () {
     return (
         <WorkspacesContainer>
             <WorkspacesTitle>Workspaces</WorkspacesTitle>
 
-            <WorkspacesItemsWrapper>
+            <CarouselFlex>
                 {ITEMS.map((item: Item, index: number) => {
                         return (
                             <WorkspaceItem
@@ -49,7 +37,7 @@ const Workspaces = function () {
                         );
                     }
                 )}
-            </WorkspacesItemsWrapper>
+            </CarouselFlex>
         </WorkspacesContainer>
     );
 }

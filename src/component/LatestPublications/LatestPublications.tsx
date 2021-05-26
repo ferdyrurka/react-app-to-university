@@ -3,11 +3,11 @@ import {Colors} from "../../styledHelpers/Colors";
 import {FontSize} from "../../styledHelpers/FontSizes";
 import MainArticleData from "./MainArticleData";
 import {useEffect, useState} from "react";
-import {Post} from "../../entities/Post";
+import {IPost} from "../../entities/Post";
 import {fetchLatestPosts, fetchMainPost} from "../../actions/PostAction";
-import {Photo} from "../../entities/Photo";
+import {IPhoto} from "../../entities/Photo";
 import {fetchMainPhoto} from "../../actions/PhotoAction";
-import {User} from "../../entities/User";
+import {IUser} from "../../entities/User";
 import {shallowEqual, useSelector} from "react-redux";
 import {IState} from "../../reducers";
 
@@ -60,9 +60,9 @@ const LatestArticleWrapper = styled.div`
 `;
 
 function LatestPublications() {
-    const [posts, setPosts] = useState<Post[]>([]);
-    const [post, setPost] = useState<Post | null>(null);
-    const [photo, setPhoto] = useState<Photo | null>(null);
+    const [posts, setPosts] = useState<IPost[]>([]);
+    const [post, setPost] = useState<IPost | null>(null);
+    const [photo, setPhoto] = useState<IPhoto | null>(null);
 
     useEffect(() => {
         fetchLatestPosts().then(posts => setPosts(posts));
@@ -70,12 +70,12 @@ function LatestPublications() {
         fetchMainPhoto().then(photo => setPhoto(photo));
     }, []);
 
-    let users: User[] = useSelector(
+    let users: IUser[] = useSelector(
         (state: IState) => state.users.users,
         shallowEqual
     );
 
-    let photos: Photo[] = useSelector(
+    let photos: IPhoto[] = useSelector(
         (state: IState) => state.photos.photos,
         shallowEqual
     );
@@ -86,7 +86,7 @@ function LatestPublications() {
                 <MainArticleWrapper className="col-12 col-xl-4" backgroundImageUrl={photo.url}>
                     <MainArticleData
                         title={post.title}
-                        user={users.find((user: User) => user.id === post.userId)}
+                        user={users.find((user: IUser) => user.id === post.userId)}
                         date="7 jan. 2020"
                         articleImgUrl={null}
                         customClassName="main-article-data"
@@ -102,7 +102,7 @@ function LatestPublications() {
                             <MainArticleData
                                 key={post.id}
                                 title={post.title}
-                                user={users.find((user: User) => user.id === post.userId)}
+                                user={users.find((user: IUser) => user.id === post.userId)}
                                 date="7 jan. 2020"
                                 articleImgUrl={photos[index].url}
                                 customClassName=""

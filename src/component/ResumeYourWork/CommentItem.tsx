@@ -1,10 +1,10 @@
 import styled from "styled-components";
 import {FC} from "react";
-import {Comment} from "../../entities/Comment";
+import {IComment} from "../../entities/Comment";
 import {Colors} from "../../styledHelpers/Colors";
 import {FontSize} from "../../styledHelpers/FontSizes";
 import {FlexRow} from "../../styledHelpers/Grid";
-import {User} from "../../entities/User";
+import {IUser} from "../../entities/User";
 import {shallowEqual, useSelector} from "react-redux";
 import {IState} from "../../reducers";
 
@@ -56,12 +56,12 @@ const CommentItemsAbout = styled(FlexRow)`
 `;
 
 interface CommentItemProps {
-    comment: Comment,
+    comment: IComment,
 }
 
 const CommentItem: FC<CommentItemProps> = props => {
-    let user: User | undefined;
-    let users: User[] = useSelector(
+    let user: IUser | undefined;
+    let users: IUser[] = useSelector(
         (state: IState) => state.users.users,
         shallowEqual
     );

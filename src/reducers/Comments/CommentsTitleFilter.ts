@@ -1,11 +1,11 @@
-import {Comment} from "../../entities/Comment";
+import {IComment} from "../../entities/Comment";
 
 export class CommentsTitleFilter
 {
     public static findByTitle(
-        comments: Comment[],
+        comments: IComment[],
         title: string,
-    ): Comment[]  {
+    ): IComment[]  {
         title = title.toLowerCase();
 
         return comments.filter(

@@ -4,14 +4,15 @@ import {FontSize} from "../../styledHelpers/FontSizes";
 import {SearchInput} from "../../styledHelpers/Components";
 import React, {Dispatch, useCallback, useEffect, useState} from "react";
 import useDropdown from "react-dropdown-hook";
-import {Comment} from "../../entities/Comment";
+import {IComment} from "../../entities/Comment";
 import {fetchComments} from "../../actions/CommentAction";
 import CommentItem from "./CommentItem";
 import {FlexColumn} from "../../styledHelpers/Grid";
 import {shallowEqual, useDispatch, useSelector} from "react-redux";
 import {IState} from "../../reducers";
-import {findCommentsAction, nextCommentsPageAction} from "../../store/FilterCommentsStore";
+import {findCommentsAction} from "../../store/FilterCommentsStore";
 import {Followed} from "../../reducers/Comments/Followed";
+import Pagination from "./Pagination";
 
 const ITEMS_COUNT: number = 10;
 
@@ -85,31 +86,9 @@ const CommentsWrapper = styled(FlexColumn)`
   flex-wrap: nowrap;
 `;
 
-const CommentsPaginatorWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  width: 100%;
-
-  span {
-    color: ${Colors.blue};
-
-    &:first-child {
-      margin-right: 15px;
-    }
-
-    &:last-child {
-      margin-left: 15px;
-    }
-  }
-
-  .active {
-    font-weight: 700;
-  }
-`;
-
 function Comments() {
     const [wrapperRef, dropdownOpen, toggleDropdown, closeDropdown] = useDropdown();
-    const [sourceComments, setSourceComments] = useState<Comment[]>([]);
+    const [sourceComments, setSourceComments] = useState<IComment[]>([]);
 
     const dispatch: Dispatch<any> = useDispatch();
 
@@ -125,7 +104,7 @@ function Comments() {
         });
     }, [dispatch]);
 
-    let comments: Comment[] = useSelector(
+    let comments: IComment[] = useSelector(
         (state: IState) => state.comments.comments,
         shallowEqual
     );
@@ -162,18 +141,6 @@ function Comments() {
         [dispatch, sourceComments, followed]
     );
 
-    const nextPage = useCallback(
-        (toPage: number) => {
-            dispatch(nextCommentsPageAction(
-                comments,
-                followed,
-                toPage,
-                page.current,
-            ));
-        },
-        [dispatch, comments, followed, page]
-    );
-
     return (
         <CommentsContainer>
             <CommentsNavWrapper>
@@ -206,49 +173,7 @@ function Comments() {
                         <CommentItem key={comment.id.toString()} comment={comment}/>
                     );
                 })}
-                <CommentsPaginatorWrapper>
-                    <div>
-                        {page.min >= 1 &&
-                        <span onClick={() => nextPage(page.current - 1)}>PREVIOUS</span>
-                        }
-
-                        {
-                            Array.from(Array(page.max).keys()).map((value: number, index: number) => {
-                                ++value;
-
-                                if (value === page.current) {
-                                    return (
-                                        <span key={index} className="active"> {value} </span>
-                                    );
-                                }
-
-                                if (value === page.min || value === page.max) {
-                                    return (
-                                        <span key={index} onClick={() => nextPage(value)}> {value} </span>
-                                    );
-                                }
-
-                                if ((value > 1 && value === (page.current - 1)) || value === (page.current + 1)) {
-                                    return (
-                                        <span key={index} onClick={() => nextPage(value)}> {value} </span>
-                                    );
-                                }
-
-                                if ((value >= 2 && value === (page.current - 2)) || value === (page.current + 2)) {
-                                    return (
-                                        <span key={index}> ... </span>
-                                    );
-                                }
-
-                                return '';
-                            })
-                        }
-
-                        {page.min >= 1 &&
-                        <span onClick={() => nextPage(page.current + 1)}>NEXT</span>
-                        }
-                    </div>
-                </CommentsPaginatorWrapper>
+                <Pagination/>
             </CommentsWrapper>
             }
         </CommentsContainer>

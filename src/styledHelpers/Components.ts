@@ -30,3 +30,30 @@ export const SearchInput = styled.input`
   }
 `;
 
+export const Carousel = styled.div`
+  overflow-x: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+`;
+
+export const CarouselFlex = styled(Carousel)`
+  display: flex;
+  flex-wrap: nowrap;
+`;
+
+export const EditIcon = styled.div`
+  position: relative;
+
+  img {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 16px;
+    height: auto;
+  }
+`;
+

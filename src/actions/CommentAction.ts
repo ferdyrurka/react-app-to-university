@@ -1,7 +1,7 @@
 import {environment} from "../tools/environment";
-import {Comment} from "../entities/Comment";
+import {IComment} from "../entities/Comment";
 
-export function fetchComments(): Promise<Comment[]> {
+export function fetchComments(): Promise<IComment[]> {
     return fetch(environment.apiUrl + 'comments')
         .then(response => response.json());
 }

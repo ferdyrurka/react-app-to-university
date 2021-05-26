@@ -1,9 +1,9 @@
-import {User} from "../../entities/User";
+import {IUser} from "../../entities/User";
 import {IUsersActions} from "../../store/UsersActions";
 import {FETCH_USERS} from "../../store/UsersStore";
 
 export interface IUsersReducer {
-    users: User[],
+    users: IUser[],
 }
 
 const defaultState = (): IUsersReducer => ({

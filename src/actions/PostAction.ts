@@ -1,12 +1,12 @@
 import {environment} from "../tools/environment";
-import {Post} from "../entities/Post";
+import {IPost} from "../entities/Post";
 
-export function fetchMainPost(): Promise<Post | null> {
+export function fetchMainPost(): Promise<IPost | null> {
     return fetch(environment.apiUrl + 'posts/1')
         .then(response => response.json());
 }
 
-export function fetchLatestPosts(): Promise<Post[] | []> {
+export function fetchLatestPosts(): Promise<IPost[] | []> {
     return fetch(environment.apiUrl + 'posts')
         .then(response => response.json())
         .then(response => {

@@ -4,7 +4,7 @@ import {FontSize} from "../../styledHelpers/FontSizes";
 import {Carousel} from "../../styledHelpers/Components";
 import {FlexColumn} from "../../styledHelpers/Grid";
 
-const ProposalsContainer = styled(FlexColumn)`
+const InternalReviewsContainer = styled(FlexColumn)`
   border-top: ${Colors.lightGrey} 1px solid;
   padding-top: 15px;
   padding-bottom: 15px;
@@ -18,11 +18,11 @@ const ProposalsContainer = styled(FlexColumn)`
   }
 `;
 
-const ProposalsTableWrapper = styled(Carousel)`
+const InternalReviewsTableWrapper = styled(Carousel)`
   margin-top: 20px;
 `;
 
-const ProposalsTable = styled.table`
+const InternalReviewsTable = styled.table`
   thead {
     border-bottom: ${Colors.lightGrey} solid 1px;
 
@@ -47,13 +47,13 @@ const ProposalsTable = styled.table`
   }
 `;
 
-function Proposals() {
+function InternalReviews() {
     return (
-        <ProposalsContainer>
-            <h1>Proposals</h1>
+        <InternalReviewsContainer>
+            <h1>Internal reviews</h1>
 
-            <ProposalsTableWrapper>
-                <ProposalsTable className="table">
+            <InternalReviewsTableWrapper>
+                <InternalReviewsTable className="table">
                     <thead>
                     <tr>
                         <th scope="col">Name</th>
@@ -61,7 +61,6 @@ function Proposals() {
                         <th scope="col">Location</th>
                         <th scope="col">Expertise</th>
                         <th scope="col">Date</th>
-                        <th scope="col">Firm</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -71,7 +70,6 @@ function Proposals() {
                         <td>France</td>
                         <td>#Tax</td>
                         <td>20/01/2020</td>
-                        <td>XYZ</td>
                     </tr>
                     <tr>
                         <th scope="row">Op. Prometheus</th>
@@ -79,23 +77,21 @@ function Proposals() {
                         <td>Usa</td>
                         <td>#M&A</td>
                         <td>20/01/2019</td>
-                        <td>SVZ</td>
                     </tr>
                     <tr>
                         <th scope="row">Op. Latandre</th>
                         <td>Renault brossa</td>
                         <td>Italia</td>
-                        <td>Social</td>
+                        <td>#Social</td>
                         <td>20/01/2018</td>
-                        <td>Racine</td>
                     </tr>
                     </tbody>
-                </ProposalsTable>
-            </ProposalsTableWrapper>
+                </InternalReviewsTable>
+            </InternalReviewsTableWrapper>
 
-            <a href="test">See more proposals</a>
-        </ProposalsContainer>
+            <a href="test">See more reviews</a>
+        </InternalReviewsContainer>
     );
 }
 
-export default Proposals;
+export default InternalReviews;

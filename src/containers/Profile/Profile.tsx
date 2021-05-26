@@ -9,6 +9,7 @@ import SkillsAndInformation from "../../component/Profile/SkillsAndInformation";
 import PanelInformations from "../../component/Profile/PanelInformations";
 import Proposals from "../../component/Profile/Proposals";
 import InternalReviews from "../../component/Profile/InternalReviews";
+import AmountOfFees from "../../component/Profile/AmountOfFees";
 
 const ProfileContainer = styled.main`
   padding: 0 20px;
@@ -29,6 +30,7 @@ function Profile() {
           <PanelInformations/>
           <Proposals/>
           <InternalReviews/>
+          <AmountOfFees/>
       </ProfileContainer>
     );
 }

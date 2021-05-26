@@ -18,17 +18,20 @@ const SkillsAndInformationWrapper = styled.div`
   
   h2 {
     width: 100%;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
     color: ${Colors.grey};
   }
 `;
 
 const SkillsAndInformationItem = styled(FlexRow)`
+  flex-wrap: wrap;
+
   div {
     padding: 3px 6px;
     background-color: #E6F0F3;
     border-radius: 3px;
     color: #6BA9B8;
+    margin-top: 5px;
     
     margin-right: 10px;
   }

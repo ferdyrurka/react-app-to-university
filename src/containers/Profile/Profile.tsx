@@ -6,6 +6,7 @@ import styled from "styled-components";
 import {Colors} from "../../styledHelpers/Colors";
 import Action from "../../component/Profile/Action";
 import SkillsAndInformation from "../../component/Profile/SkillsAndInformation";
+import PanelInformations from "../../component/Profile/PanelInformations";
 
 const ProfileContainer = styled.main`
   padding: 0 20px;
@@ -23,6 +24,7 @@ function Profile() {
           <Action/>
           <BasicData user={user}/>
           <SkillsAndInformation/>
+          <PanelInformations/>
       </ProfileContainer>
     );
 }

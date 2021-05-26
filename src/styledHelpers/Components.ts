@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import {FlexRow} from "./Grid";
 
 export const Link = styled.a`
   text-decoration: none;
@@ -31,8 +30,7 @@ export const SearchInput = styled.input`
   }
 `;
 
-export const Carousel = styled(FlexRow)`
-  flex-wrap: nowrap;
+export const Carousel = styled.div`
   overflow-x: scroll;
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -40,6 +38,11 @@ export const Carousel = styled(FlexRow)`
   &::-webkit-scrollbar {
     display: none;
   }
+`;
+
+export const CarouselFlex = styled(Carousel)`
+  display: flex;
+  flex-wrap: nowrap;
 `;
 
 export const EditIcon = styled.div`

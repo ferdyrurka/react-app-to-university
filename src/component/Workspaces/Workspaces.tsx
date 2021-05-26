@@ -3,7 +3,7 @@ import {Colors} from "../../styledHelpers/Colors";
 import {FontSize} from "../../styledHelpers/FontSizes";
 import WorkspaceItem from "./WorkspaceItem";
 import {Item, ITEMS} from "./WorkspaceItems";
-import {Carousel} from "../../styledHelpers/Components";
+import {CarouselFlex} from "../../styledHelpers/Components";
 
 const WorkspacesContainer = styled.div`
 
@@ -21,7 +21,7 @@ const Workspaces = function () {
         <WorkspacesContainer>
             <WorkspacesTitle>Workspaces</WorkspacesTitle>
 
-            <Carousel>
+            <CarouselFlex>
                 {ITEMS.map((item: Item, index: number) => {
                         return (
                             <WorkspaceItem
@@ -37,7 +37,7 @@ const Workspaces = function () {
                         );
                     }
                 )}
-            </Carousel>
+            </CarouselFlex>
         </WorkspacesContainer>
     );
 }

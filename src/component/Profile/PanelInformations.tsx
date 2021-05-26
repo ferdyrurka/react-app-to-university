@@ -3,7 +3,7 @@ import {FlexColumn} from "../../styledHelpers/Grid";
 import {Colors} from "../../styledHelpers/Colors";
 import React from "react";
 import {FontSize} from "../../styledHelpers/FontSizes";
-import {Carousel} from "../../styledHelpers/Components";
+import {CarouselFlex} from "../../styledHelpers/Components";
 
 const PanelInformationsContainer = styled(FlexColumn)`
   padding-top: 15px;
@@ -43,7 +43,7 @@ const PanelInformationsAttachment = styled.div`
   }
 `;
 
-const PanelInformationsCorrespondant = styled(Carousel)`
+const PanelInformationsCorrespondant = styled(CarouselFlex)`
   display: flex;
   margin-top: 2px;
   padding: 8px 5px;

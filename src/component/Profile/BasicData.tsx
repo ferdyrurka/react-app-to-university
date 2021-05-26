@@ -4,14 +4,14 @@ import styled from "styled-components";
 import {FontSize} from "../../styledHelpers/FontSizes";
 import {Colors} from "../../styledHelpers/Colors";
 import {FlexColumn} from "../../styledHelpers/Grid";
-import {Carousel, EditIcon} from "../../styledHelpers/Components";
+import {CarouselFlex, EditIcon} from "../../styledHelpers/Components";
 import {LineHeight} from "../../styledHelpers/LineHeight";
 
 interface BasicDataProps {
     user: IUser | null,
 }
 
-const BasicDataContainer = styled(Carousel)`
+const BasicDataContainer = styled(CarouselFlex)`
   height: 150px;
   padding: 30px 0;
 `;

@@ -2,10 +2,10 @@ import styled from "styled-components";
 import {FontSize} from "../../styledHelpers/FontSizes";
 import {Colors} from "../../styledHelpers/Colors";
 import {Breakpoint} from "../../styledHelpers/Breakpoint";
-import {Carousel} from "../../styledHelpers/Components";
+import {CarouselFlex} from "../../styledHelpers/Components";
 import {LineHeight} from "../../styledHelpers/LineHeight";
 
-const BasicDataActionContainer = styled(Carousel)`
+const BasicDataActionContainer = styled(CarouselFlex)`
   padding-top: 15px;
   
   @media only screen and (min-width: ${Breakpoint["tablet"]}) {

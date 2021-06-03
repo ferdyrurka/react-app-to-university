@@ -3,7 +3,10 @@ import {Colors} from "../../styledHelpers/Colors";
 import {FontSize} from "../../styledHelpers/FontSizes";
 import {Carousel, EditIcon} from "../../styledHelpers/Components";
 import {FlexColumn} from "../../styledHelpers/Grid";
-import React from "react";
+import React, {useState} from "react";
+import {findAllProposals} from "../../actions/ProposalAction";
+import {useFormik} from "formik";
+import {EditInput} from "./Shared";
 
 const ProposalsContainer = styled(FlexColumn)`
   border-top: ${Colors.lightGrey} 1px solid;
@@ -49,10 +52,26 @@ const ProposalsTable = styled.table`
 `;
 
 function Proposals() {
+    const [editing, setEditing] = useState<boolean>(false);
+
+    const formik = useFormik({
+        initialValues: {
+            proposals: findAllProposals(),
+        },
+        onSubmit: values => {
+            setEditing(false);
+        }
+    });
+
     return (
         <ProposalsContainer>
             <EditIcon>
-                <i className="bi bi-pencil"/>
+                {!editing &&
+                    <i className="bi bi-pencil" onClick={() => setEditing(true)}/>
+                }
+                {editing &&
+                    <i className="bi bi-check-lg" onClick={() => formik.handleSubmit()}/>
+                }
             </EditIcon>
 
             <h1>Proposals</h1>
@@ -70,30 +89,66 @@ function Proposals() {
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <th scope="row">Operation times</th>
-                        <td>Renault corsa</td>
-                        <td>France</td>
-                        <td>#Tax</td>
-                        <td>20/01/2020</td>
-                        <td>XYZ</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Op. Prometheus</th>
-                        <td>Renault HQ</td>
-                        <td>Usa</td>
-                        <td>#M&A</td>
-                        <td>20/01/2019</td>
-                        <td>SVZ</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Op. Latandre</th>
-                        <td>Renault brossa</td>
-                        <td>Italia</td>
-                        <td>Social</td>
-                        <td>20/01/2018</td>
-                        <td>Racine</td>
-                    </tr>
+                    {formik.values.proposals.map((value, index) => {
+                       return (
+                           <tr key={index}>
+                               <th scope="row">
+                                   {!editing && value.name}
+                                   {editing &&
+                                       <EditInput type="text" placeholder="name"
+                                                  name={'proposals[' + index + ']["name"]'}
+                                                  onChange={formik.handleChange} value={value.name}
+                                       />
+                                   }
+                               </th>
+                               <td>
+                                   {!editing && value.entity}
+                                   {editing &&
+                                   <EditInput type="text" placeholder="name"
+                                              name={'proposals[' + index + ']["entity"]'}
+                                              onChange={formik.handleChange} value={value.entity}
+                                   />
+                                   }
+                               </td>
+                               <td>
+                                   {!editing && value.location}
+                                   {editing &&
+                                   <EditInput type="text" placeholder="name"
+                                              name={'proposals[' + index + ']["location"]'}
+                                              onChange={formik.handleChange} value={value.location}
+                                   />
+                                   }
+                               </td>
+                               <td>
+                                   {!editing && value.expertise}
+                                   {editing &&
+                                   <EditInput type="text" placeholder="name"
+                                              name={'proposals[' + index + ']["expertise"]'}
+                                              onChange={formik.handleChange} value={value.expertise}
+                                   />
+                                   }
+                               </td>
+                               <td>
+                                   {!editing && value.date}
+                                   {editing &&
+                                       <EditInput type="text" placeholder="name"
+                                                  name={'proposals[' + index + ']["date"]'}
+                                                  onChange={formik.handleChange} value={value.date}
+                                       />
+                                   }
+                               </td>
+                               <td>
+                                   {!editing && value.firm}
+                                   {editing &&
+                                       <EditInput type="text" placeholder="name"
+                                                  name={'proposals[' + index + ']["firm"]'}
+                                                  onChange={formik.handleChange} value={value.firm}
+                                       />
+                                   }
+                               </td>
+                           </tr>
+                       );
+                    })}
                     </tbody>
                 </ProposalsTable>
             </ProposalsTableWrapper>

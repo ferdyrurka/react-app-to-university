@@ -3,7 +3,10 @@ import {Colors} from "../../styledHelpers/Colors";
 import {FontSize} from "../../styledHelpers/FontSizes";
 import {Carousel, EditIcon} from "../../styledHelpers/Components";
 import {FlexColumn} from "../../styledHelpers/Grid";
-import React from "react";
+import React, {useState} from "react";
+import {useFormik} from "formik";
+import {findAllAmountOfFees} from "../../actions/AmountOfFeeAction";
+import {EditInput} from "./Shared";
 
 const AmountOfFeesContainer = styled(FlexColumn)`
   border-top: ${Colors.lightGrey} 1px solid;
@@ -48,10 +51,26 @@ const AmountOfFeesTable = styled.table`
 `;
 
 function AmountOfFees() {
+    const [editing, setEditing] = useState<boolean>(false);
+
+    const formik = useFormik({
+        initialValues: {
+            amountOfFees: findAllAmountOfFees(),
+        },
+        onSubmit: values => {
+            setEditing(false);
+        }
+    });
+
     return (
         <AmountOfFeesContainer>
             <EditIcon>
-                <i className="bi bi-pencil"/>
+                {!editing &&
+                    <i className="bi bi-pencil" onClick={() => setEditing(true)}/>
+                }
+                {editing &&
+                    <i className="bi bi-check-lg" onClick={() => formik.handleSubmit()}/>
+                }
             </EditIcon>
 
             <h1>Amount of fees</h1>
@@ -67,36 +86,48 @@ function AmountOfFees() {
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <th scope="row">2019</th>
-                        <td>CS 153</td>
-                        <td>3500$</td>
-                        <td>Clifford chance</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2018</th>
-                        <td>CS 47</td>
-                        <td>9500$</td>
-                        <td>Linklasters</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2017</th>
-                        <td>CS 32</td>
-                        <td>10 500$</td>
-                        <td>Linklasters</td>
-                    </tr>
-                    <tr>
-                        <th scope="row"/>
-                        <td>CS 153</td>
-                        <td>18 500$</td>
-                        <td>Linklasters</td>
-                    </tr>
-                    <tr>
-                        <th scope="row"/>
-                        <td>CS 153</td>
-                        <td>15 500$</td>
-                        <td>Linklasters</td>
-                    </tr>
+                    {formik.values.amountOfFees.map((value, index) => {
+                        return (
+                            <tr key={index}>
+                                <th scope="row">
+                                    {(!editing && value.year > 0) && value.year}
+                                    {editing &&
+                                        <EditInput type="number" placeholder="name"
+                                                   name={'amountOfFees[' + index + ']["year"]'}
+                                                   onChange={formik.handleChange} value={value.year}
+                                        />
+                                    }
+                                </th>
+                                <td>
+                                    {!editing && value.costCenter}
+                                    {editing &&
+                                        <EditInput type="text" placeholder="name"
+                                                   name={'amountOfFees[' + index + ']["costCenter"]'}
+                                                   onChange={formik.handleChange} value={value.costCenter}
+                                        />
+                                    }
+                                </td>
+                                <td>
+                                    {!editing && value.totalAmount + '$'}
+                                    {editing &&
+                                        <EditInput type="number" placeholder="name"
+                                                   name={'amountOfFees[' + index + ']["totalAmount"]'}
+                                                   onChange={formik.handleChange} value={value.totalAmount}
+                                        />
+                                    }
+                                </td>
+                                <td>
+                                    {!editing && value.lawFirm}
+                                    {editing &&
+                                        <EditInput type="text" placeholder="name"
+                                                   name={'amountOfFees[' + index + ']["lawFirm"]'}
+                                                   onChange={formik.handleChange} value={value.lawFirm}
+                                        />
+                                    }
+                                </td>
+                            </tr>
+                        );
+                    })}
                     </tbody>
                 </AmountOfFeesTable>
             </AmountOfFeesTableWrapper>

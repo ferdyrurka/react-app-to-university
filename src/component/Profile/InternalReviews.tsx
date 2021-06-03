@@ -3,7 +3,10 @@ import {Colors} from "../../styledHelpers/Colors";
 import {FontSize} from "../../styledHelpers/FontSizes";
 import {Carousel, EditIcon} from "../../styledHelpers/Components";
 import {FlexColumn} from "../../styledHelpers/Grid";
-import React from "react";
+import React, {useState} from "react";
+import {useFormik} from "formik";
+import {findAllInternalReviews} from "../../actions/InternalReviewAction";
+import {EditInput} from "./Shared";
 
 const InternalReviewsContainer = styled(FlexColumn)`
   border-top: ${Colors.lightGrey} 1px solid;
@@ -49,10 +52,26 @@ const InternalReviewsTable = styled.table`
 `;
 
 function InternalReviews() {
+    const [editing, setEditing] = useState<boolean>(false);
+
+    const formik = useFormik({
+        initialValues: {
+            internalReviews: findAllInternalReviews(),
+        },
+        onSubmit: values => {
+            setEditing(false);
+        }
+    });
+
     return (
         <InternalReviewsContainer>
             <EditIcon>
-                <i className="bi bi-pencil"/>
+                {!editing &&
+                    <i className="bi bi-pencil" onClick={() => setEditing(true)}/>
+                }
+                {editing &&
+                    <i className="bi bi-check-lg" onClick={() => formik.handleSubmit()}/>
+                }
             </EditIcon>
 
             <h1>Internal reviews</h1>
@@ -69,27 +88,57 @@ function InternalReviews() {
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <th scope="row">Operation times</th>
-                        <td>Renault corsa</td>
-                        <td>France</td>
-                        <td>#Tax</td>
-                        <td>20/01/2020</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Op. Prometheus</th>
-                        <td>Renault HQ</td>
-                        <td>Usa</td>
-                        <td>#M&A</td>
-                        <td>20/01/2019</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Op. Latandre</th>
-                        <td>Renault brossa</td>
-                        <td>Italia</td>
-                        <td>#Social</td>
-                        <td>20/01/2018</td>
-                    </tr>
+                    {formik.values.internalReviews.map((value, index) => {
+                        return (
+                            <tr key={index}>
+                                <th scope="row">
+                                    {!editing && value.name}
+                                    {editing &&
+                                    <EditInput type="text" placeholder="name"
+                                               name={'internalReviews[' + index + ']["name"]'}
+                                               onChange={formik.handleChange} value={value.name}
+                                    />
+                                    }
+                                </th>
+                                <td>
+                                    {!editing && value.entity}
+                                    {editing &&
+                                    <EditInput type="text" placeholder="name"
+                                               name={'proposals[' + index + ']["entity"]'}
+                                               onChange={formik.handleChange} value={value.entity}
+                                    />
+                                    }
+                                </td>
+                                <td>
+                                    {!editing && value.location}
+                                    {editing &&
+                                    <EditInput type="text" placeholder="name"
+                                               name={'internalReviews[' + index + ']["location"]'}
+                                               onChange={formik.handleChange} value={value.location}
+                                    />
+                                    }
+                                </td>
+                                <td>
+                                    {!editing && value.expertise}
+                                    {editing &&
+                                    <EditInput type="text" placeholder="name"
+                                               name={'internalReviews[' + index + ']["expertise"]'}
+                                               onChange={formik.handleChange} value={value.expertise}
+                                    />
+                                    }
+                                </td>
+                                <td>
+                                    {!editing && value.date}
+                                    {editing &&
+                                    <EditInput type="text" placeholder="name"
+                                               name={'internalReviews[' + index + ']["date"]'}
+                                               onChange={formik.handleChange} value={value.date}
+                                    />
+                                    }
+                                </td>
+                            </tr>
+                        );
+                    })}
                     </tbody>
                 </InternalReviewsTable>
             </InternalReviewsTableWrapper>

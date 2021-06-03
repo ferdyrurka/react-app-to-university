@@ -91,7 +91,7 @@ const BasicData: FC<BasicDataProps> = props => {
 
             <BasicDataEditContactDataWrapper>
                 <BasicDataEditIcon>
-                    <img src="media/icons/cog.png" alt="edit"/>
+                    <i className="bi bi-pencil"/>
                 </BasicDataEditIcon>
 
                 <BasicDataContactData>

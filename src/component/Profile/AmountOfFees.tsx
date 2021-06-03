@@ -1,8 +1,9 @@
 import styled from "styled-components";
 import {Colors} from "../../styledHelpers/Colors";
 import {FontSize} from "../../styledHelpers/FontSizes";
-import {Carousel} from "../../styledHelpers/Components";
+import {Carousel, EditIcon} from "../../styledHelpers/Components";
 import {FlexColumn} from "../../styledHelpers/Grid";
+import React from "react";
 
 const AmountOfFeesContainer = styled(FlexColumn)`
   border-top: ${Colors.lightGrey} 1px solid;
@@ -49,6 +50,10 @@ const AmountOfFeesTable = styled.table`
 function AmountOfFees() {
     return (
         <AmountOfFeesContainer>
+            <EditIcon>
+                <i className="bi bi-pencil"/>
+            </EditIcon>
+
             <h1>Amount of fees</h1>
 
             <AmountOfFeesTableWrapper>

@@ -41,7 +41,7 @@ function SkillsAndInformation() {
     return (
         <SkillsAndInformationContainer>
             <EditIcon>
-                <img src="media/icons/cog.png" alt="edit"/>
+                <i className="bi bi-pencil"/>
             </EditIcon>
 
             <SkillsAndInformationWrapper>

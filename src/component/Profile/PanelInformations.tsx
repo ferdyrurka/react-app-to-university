@@ -3,7 +3,7 @@ import {FlexColumn} from "../../styledHelpers/Grid";
 import {Colors} from "../../styledHelpers/Colors";
 import React from "react";
 import {FontSize} from "../../styledHelpers/FontSizes";
-import {CarouselFlex} from "../../styledHelpers/Components";
+import {CarouselFlex, EditIcon} from "../../styledHelpers/Components";
 
 const PanelInformationsContainer = styled(FlexColumn)`
   padding-top: 15px;
@@ -86,6 +86,10 @@ const PanelInformationsCorrespondantUser = styled.div`
 function PanelInformations() {
     return (
         <PanelInformationsContainer>
+            <EditIcon>
+                <i className="bi bi-pencil"/>
+            </EditIcon>
+
             <h1>Panel informations</h1>
 
             <PanelInformationsWrapper>

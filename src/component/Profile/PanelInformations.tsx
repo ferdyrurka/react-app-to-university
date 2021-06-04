@@ -6,6 +6,8 @@ import {FontSize} from "../../styledHelpers/FontSizes";
 import {CarouselFlex, EditIcon} from "../../styledHelpers/Components";
 import {useFormik} from "formik";
 import {EditInput} from "./Shared";
+import * as yup from "yup";
+import {ErrorWrapper} from "../../tools/YupFields";
 
 const PanelInformationsContainer = styled(FlexColumn)`
   padding-top: 15px;
@@ -87,6 +89,12 @@ const PanelInformationsCorrespondantUser = styled.div`
 `;
 
 const PanelInformations = () => {
+    const validation = yup.object({
+        hourlyFee: yup.number().min(0),
+        monthlyRetainer: yup.number().min(0),
+        servicesAndProject: yup.string().matches(/^[a-zA-Z0-9&., ]+$/).required(),
+    });
+
     const formik = useFormik({
         initialValues: {
             hourlyFee: 610,
@@ -96,7 +104,8 @@ const PanelInformations = () => {
         },
         onSubmit: values => {
             setEditing(false);
-        }
+        },
+        validationSchema: validation,
     })
 
     const [editing, setEditing] = useState<boolean>(false);
@@ -121,9 +130,12 @@ const PanelInformations = () => {
                 }
 
                 {editing &&
-                    <EditInput type="text" placeholder="$ per hour" name="hourlyFee"
+                    <EditInput type="number" placeholder="$ per hour" name="hourlyFee"
                                onChange={formik.handleChange} value={formik.values.hourlyFee}
                     />
+                }
+                {editing && formik.errors.hourlyFee &&
+                <ErrorWrapper><small>Give bad data</small></ErrorWrapper>
                 }
             </PanelInformationsWrapper>
 
@@ -134,9 +146,12 @@ const PanelInformations = () => {
                 }
 
                 {editing &&
-                    <EditInput type="text" placeholder="k per month" name="monthlyRetainer"
+                    <EditInput type="number" placeholder="k per month" name="monthlyRetainer"
                                onChange={formik.handleChange} value={formik.values.monthlyRetainer}
                     />
+                }
+                {editing && formik.errors.monthlyRetainer &&
+                <ErrorWrapper><small>Give bad data</small></ErrorWrapper>
                 }
                 <PanelInformationsAttachment>
                     <i className="bi bi-paperclip"/>
@@ -157,6 +172,9 @@ const PanelInformations = () => {
                     <EditInput type="text" placeholder="services and project" name="servicesAndProject"
                                onChange={formik.handleChange} value={formik.values.servicesAndProject}
                     />
+                }
+                {editing && formik.errors.servicesAndProject &&
+                <ErrorWrapper><small>Give bad data</small></ErrorWrapper>
                 }
             </PanelInformationsWrapper>
 

@@ -7,6 +7,8 @@ import React, {useState} from "react";
 import {useFormik} from "formik";
 import {findAllInternalReviews} from "../../actions/InternalReviewAction";
 import {EditInput} from "./Shared";
+import * as yup from "yup";
+import {ErrorWrapper, isValidateField} from "../../tools/YupFields";
 
 const InternalReviewsContainer = styled(FlexColumn)`
   border-top: ${Colors.lightGrey} 1px solid;
@@ -54,13 +56,27 @@ const InternalReviewsTable = styled.table`
 function InternalReviews() {
     const [editing, setEditing] = useState<boolean>(false);
 
+    const validation = yup.object({
+        internalReviews: yup.array().of(
+            yup.object({
+                name: yup.string().matches(/^[a-zA-Z0-9&. ]+$/).required(),
+                entity: yup.string().matches(/^[a-zA-Z0-9 ]+$/).required(),
+                location: yup.string().matches(/^[a-zA-Z -]+$/).required(),
+                expertise: yup.string().matches(/^#?[a-zA-Z0-9&. ]+$/).required(),
+                date: yup.string().matches(/^([0-9]{1,2})\/([0-9]){1,2}\/([0-9]){1,4}$/).required(),
+                firm: yup.string().matches(/^[a-zA-Z0-9 ]+$/).required(),
+            })
+        )
+    });
+
     const formik = useFormik({
         initialValues: {
             internalReviews: findAllInternalReviews(),
         },
         onSubmit: values => {
             setEditing(false);
-        }
+        },
+        validationSchema: validation,
     });
 
     return (
@@ -99,6 +115,11 @@ function InternalReviews() {
                                                onChange={formik.handleChange} value={value.name}
                                     />
                                     }
+                                    {editing && formik.errors.internalReviews &&
+                                    isValidateField(formik.errors.internalReviews, index, 'name')
+                                    &&
+                                    <ErrorWrapper><small>Give bad data</small></ErrorWrapper>
+                                    }
                                 </th>
                                 <td>
                                     {!editing && value.entity}
@@ -107,6 +128,11 @@ function InternalReviews() {
                                                name={'proposals[' + index + ']["entity"]'}
                                                onChange={formik.handleChange} value={value.entity}
                                     />
+                                    }
+                                    {editing && formik.errors.internalReviews &&
+                                    isValidateField(formik.errors.internalReviews, index, 'entity')
+                                    &&
+                                    <ErrorWrapper><small>Give bad data</small></ErrorWrapper>
                                     }
                                 </td>
                                 <td>
@@ -117,6 +143,11 @@ function InternalReviews() {
                                                onChange={formik.handleChange} value={value.location}
                                     />
                                     }
+                                    {editing && formik.errors.internalReviews &&
+                                    isValidateField(formik.errors.internalReviews, index, 'location')
+                                    &&
+                                    <ErrorWrapper><small>Give bad data</small></ErrorWrapper>
+                                    }
                                 </td>
                                 <td>
                                     {!editing && value.expertise}
@@ -126,6 +157,11 @@ function InternalReviews() {
                                                onChange={formik.handleChange} value={value.expertise}
                                     />
                                     }
+                                    {editing && formik.errors.internalReviews &&
+                                    isValidateField(formik.errors.internalReviews, index, 'expertise')
+                                    &&
+                                    <ErrorWrapper><small>Give bad data</small></ErrorWrapper>
+                                    }
                                 </td>
                                 <td>
                                     {!editing && value.date}
@@ -134,6 +170,11 @@ function InternalReviews() {
                                                name={'internalReviews[' + index + ']["date"]'}
                                                onChange={formik.handleChange} value={value.date}
                                     />
+                                    }
+                                    {editing && formik.errors.internalReviews &&
+                                    isValidateField(formik.errors.internalReviews, index, 'date')
+                                    &&
+                                    <ErrorWrapper><small>Give bad data</small></ErrorWrapper>
                                     }
                                 </td>
                             </tr>

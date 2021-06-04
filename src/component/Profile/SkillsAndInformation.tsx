@@ -5,6 +5,8 @@ import {EditIcon} from "../../styledHelpers/Components";
 import React, {useState} from "react";
 import {useFormik} from "formik";
 import {EditInput} from "./Shared";
+import * as yup from "yup";
+import {ErrorWrapper} from "../../tools/YupFields";
 
 const SkillsAndInformationContainer = styled(FlexColumn)`
   padding-top: 15px;
@@ -40,6 +42,13 @@ const SkillsAndInformationItem = styled(FlexRow)`
 `;
 
 const SkillsAndInformation = () => {
+    const validation = yup.object({
+        expertise: yup.string().matches(/^[A-Za-z0-9 &/$.,;]+$/).required(),
+        specialities: yup.string().matches(/^[A-Za-z0-9 &/$.,;]+$/).required(),
+        admissionToPracticeLaw: yup.string().matches(/^[A-Za-z0-9 &/$.,;]+$/).required(),
+        countries: yup.string().matches(/^[A-Za-z \-;]+$/).required(),
+    });
+
     const formik = useFormik({
         initialValues: {
             expertise: 'Mergers and acquisition',
@@ -49,7 +58,8 @@ const SkillsAndInformation = () => {
         },
         onSubmit: values => {
             setEditing(false);
-        }
+        },
+        validationSchema: validation,
     });
 
     const [editing, setEditing] = useState<boolean>(false);
@@ -91,6 +101,9 @@ const SkillsAndInformation = () => {
                         />
                     </SkillsAndInformationItem>
                 }
+                {editing && formik.errors.expertise &&
+                <ErrorWrapper><small>Give bad data</small></ErrorWrapper>
+                }
             </SkillsAndInformationWrapper>
 
             <SkillsAndInformationWrapper>
@@ -109,6 +122,9 @@ const SkillsAndInformation = () => {
                                onChange={formik.handleChange} value={formik.values.specialities}
                         />
                     </SkillsAndInformationItem>
+                }
+                {editing && formik.errors.specialities &&
+                <ErrorWrapper><small>Give bad data</small></ErrorWrapper>
                 }
             </SkillsAndInformationWrapper>
 
@@ -129,6 +145,9 @@ const SkillsAndInformation = () => {
                         />
                     </SkillsAndInformationItem>
                 }
+                {editing && formik.errors.admissionToPracticeLaw &&
+                <ErrorWrapper><small>Give bad data</small></ErrorWrapper>
+                }
             </SkillsAndInformationWrapper>
 
             <SkillsAndInformationWrapper>
@@ -147,6 +166,9 @@ const SkillsAndInformation = () => {
                                onChange={formik.handleChange} value={formik.values.countries}
                         />
                     </SkillsAndInformationItem>
+                }
+                {editing && formik.errors.countries &&
+                <ErrorWrapper><small>Give bad data</small></ErrorWrapper>
                 }
             </SkillsAndInformationWrapper>
         </SkillsAndInformationContainer>

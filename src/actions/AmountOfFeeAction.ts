@@ -21,13 +21,13 @@ export function findAllAmountOfFees(): IAmountOfFee[] {
             lawFirm: 'Linklasters',
         },
         {
-            year: 0,
+            year: 1945,
             costCenter: 'CS 153',
             totalAmount: 18500,
             lawFirm: 'Linklasters',
         },
         {
-            year: 0,
+            year: 1945,
             costCenter: 'CS 153',
             totalAmount: 15500,
             lawFirm: 'Linklasters',

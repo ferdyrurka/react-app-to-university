@@ -80,7 +80,7 @@ const CommentItem: FC<CommentItemProps> = props => {
                 </div>
 
                 <div className="item">
-                    <img src="media/icons/entities.png" alt="type icon"/>
+                    <img src="/media/icons/entities.png" alt="type icon"/>
                     <span> Corporate</span>
                     <span>+</span>
                 </div>

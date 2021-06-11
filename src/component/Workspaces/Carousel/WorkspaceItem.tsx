@@ -1,8 +1,8 @@
 import {FC} from "react";
 import styled from "styled-components";
-import {Colors} from "../../styledHelpers/Colors";
-import {FlexRow} from "../../styledHelpers/Grid";
-import {FontSize} from "../../styledHelpers/FontSizes";
+import {Colors} from "../../../styledHelpers/Colors";
+import {FlexRow} from "../../../styledHelpers/Grid";
+import {FontSize} from "../../../styledHelpers/FontSizes";
 
 const WorkspaceItemDataWrapper = styled.div`
   height: 110px;
@@ -75,15 +75,22 @@ const WorkspaceItemDate = styled.div`
   }
 `;
 
-const WorkspaceItemWrapper = styled.div`
+const WorkspaceItemWrapper = styled.a`
   width: 240px;
   min-width: 240px;
   height: 195px;
   margin-right: 8px;
+  text-decoration: none;
+  color: ${Colors.darkGrey};
+  
+  &:hover, &:active, &:focus {
+    color: ${Colors.darkGrey}; 
+  }
 `;
 
 export interface WorkspaceProps {
     title: string,
+    slug: string,
     backgroundImageUrl: string,
     imagUrl: string,
     smallImageUrl: string,
@@ -103,7 +110,7 @@ const BackgroundImageWrapper = styled.div.attrs((props: any) => ({
 
 const WorkspaceItem: FC<WorkspaceProps> = props => {
     return (
-        <WorkspaceItemWrapper>
+        <WorkspaceItemWrapper href={"/workspace/" + props.slug}>
             <BackgroundImageWrapper backgroundImageUrl={props.backgroundImageUrl}/>
             <WorkspaceItemDataWrapper>
                 <WorkspaceItemTypeBigIcon>

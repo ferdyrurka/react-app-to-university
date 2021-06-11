@@ -149,9 +149,9 @@ function Comments() {
                 <CommentsActionWrapper ref={wrapperRef}>
                     <FilterInput placeholder="Filter by title" id="filter_title" onInput={() => changeFilterTitle()}/>
                     <FilterAction onClick={!dropdownOpen ? toggleDropdown : closeDropdown}>
-                        <img className="signal-icon" src="media/icons/ecosystem.png" alt="arrow down"/>
+                        <img className="signal-icon" src="/media/icons/ecosystem.png" alt="arrow down"/>
                         <span>Followed</span>
-                        <img className="arrow-icon" src="media/icons/arrow-down.png" alt="arrow down"/>
+                        <img className="arrow-icon" src="/media/icons/arrow-down.png" alt="arrow down"/>
                     </FilterAction>
                     {dropdownOpen &&
                     <FilterActionDropdownMenu>

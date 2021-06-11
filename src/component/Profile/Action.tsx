@@ -43,17 +43,17 @@ function Action() {
     return (
         <BasicDataActionContainer>
             <BasicDataActionItem href="test">
-                <img src="media/icons/bell.png" alt="message"/>
+                <img src="/media/icons/bell.png" alt="message"/>
                 <span>Message</span>
             </BasicDataActionItem>
 
             <BasicDataActionItem href="test">
-                <img src="media/icons/entities.png" alt="request"/>
+                <img src="/media/icons/entities.png" alt="request"/>
                 <span>Create a request</span>
             </BasicDataActionItem>
 
             <BasicDataActionItem href="test">
-                <img src="media/icons/plus.png" alt="add"/>
+                <img src="/media/icons/plus.png" alt="add"/>
                 <span>Add to a cluster</span>
             </BasicDataActionItem>
         </BasicDataActionContainer>

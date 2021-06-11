@@ -1,5 +1,5 @@
 import LatestPublications from "../../component/LatestPublications/LatestPublications";
-import Workspaces from "../../component/Workspaces/Workspaces";
+import Workspaces from "../../component/Workspaces/Carousel/Workspaces";
 import Comments from "../../component/ResumeYourWork/Comments";
 import React, {useEffect} from "react";
 import {fetchUsers} from "../../actions/UserAction";

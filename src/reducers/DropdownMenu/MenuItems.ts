@@ -3,31 +3,31 @@ const ITEMS: MenuSectionItems[] = [
         title: 'Platform',
         items: [
             {
-                icon: 'media/icons/house.png',
+                icon: '/media/icons/house.png',
                 title: 'Home',
                 href: 'test',
                 description: '',
             },
             {
-                icon: 'media/icons/publications.png',
+                icon: '/media/icons/publications.png',
                 title: 'Publications',
                 href: 'test',
                 description: '',
             },
             {
-                icon: 'media/icons/people.png',
+                icon: '/media/icons/people.png',
                 title: 'People',
                 href: 'test',
                 description: '',
             },
             {
-                icon: 'media/icons/entities2.png',
+                icon: '/media/icons/entities2.png',
                 title: 'Entities',
                 href: 'test',
                 description: '',
             },
             {
-                icon: 'media/icons/administration.png',
+                icon: '/media/icons/administration.png',
                 title: 'Administration',
                 href: 'test',
                 description: '',
@@ -38,31 +38,31 @@ const ITEMS: MenuSectionItems[] = [
         title: 'Workspaces',
         items: [
             {
-                icon: 'media/icons/privacy.png',
+                icon: '/media/icons/privacy.png',
                 title: 'Client contract',
                 href: 'test',
                 description: '',
             },
             {
-                icon: 'media/icons/privacy.png',
+                icon: '/media/icons/privacy.png',
                 title: 'Supplier contract',
                 href: 'test',
                 description: '',
             },
             {
-                icon: 'media/icons/entities2.png',
+                icon: '/media/icons/entities2.png',
                 title: 'Corporate',
                 href: 'test',
                 description: '',
             },
             {
-                icon: 'media/icons/publications.png',
+                icon: '/media/icons/publications.png',
                 title: 'Group Norms',
                 href: 'test',
                 description: '',
             },
             {
-                icon: 'media/icons/privacy.png',
+                icon: '/media/icons/privacy.png',
                 title: 'Real estate contracts',
                 href: 'test',
                 description: '',
@@ -73,19 +73,19 @@ const ITEMS: MenuSectionItems[] = [
         title: 'Account',
         items: [
             {
-                icon: 'media/icons/privacy.png',
+                icon: '/media/icons/privacy.png',
                 title: 'Your profile',
                 href: 'profile',
                 description: 'See profile',
             },
             {
-                icon: 'media/icons/privacy.png',
+                icon: '/media/icons/privacy.png',
                 title: 'Privacy',
                 href: 'test',
                 description: '',
             },
             {
-                icon: 'media/icons/settings.png',
+                icon: '/media/icons/settings.png',
                 title: 'Settings',
                 href: 'test',
                 description: '',

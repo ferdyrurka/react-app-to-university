@@ -43,17 +43,17 @@ function Action() {
     return (
         <ActionContainer>
             <ActionWrapper>
-                <img className="logo" src="media/icons/network.png" alt="Your network"/>
+                <img className="logo" src="/media/icons/network.png" alt="Your network"/>
                 <span>Your network</span>
                 <ActionButton>
-                    <img className="btn-img" src="media/icons/user-plus.png" alt="Add user"/>
+                    <img className="btn-img" src="/media/icons/user-plus.png" alt="Add user"/>
                 </ActionButton>
             </ActionWrapper>
             <ActionWrapper>
-                <img className="logo" src="media/icons/publications.png" alt="Your publications"/>
+                <img className="logo" src="/media/icons/publications.png" alt="Your publications"/>
                 <span>Your Publications</span>
                 <ActionButton>
-                    <img className="btn-img" src="media/icons/plus.png" alt="Add publication"/>
+                    <img className="btn-img" src="/media/icons/plus.png" alt="Add publication"/>
                 </ActionButton>
             </ActionWrapper>
         </ActionContainer>

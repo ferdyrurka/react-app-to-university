@@ -38,19 +38,19 @@ function Menu() {
         <LeftMenuWrapper className="d-none d-md-block">
             <LeftMenuItemWrapper>
                 <LeftMenuItem href="/test">
-                    <img className="logo" src="media/icons/publications.png" alt="Publications"/>
+                    <img className="logo" src="/media/icons/publications.png" alt="Publications"/>
                     <span>Publications</span>
                 </LeftMenuItem>
             </LeftMenuItemWrapper>
             <LeftMenuItemWrapper>
                 <LeftMenuItem href="/test">
-                    <img className="logo" src="media/icons/ecosystem.png" alt="Ecosystem"/>
+                    <img className="logo" src="/media/icons/ecosystem.png" alt="Ecosystem"/>
                     <span>Ecosystem</span>
                 </LeftMenuItem>
             </LeftMenuItemWrapper>
             <LeftMenuItemWrapper>
                 <LeftMenuItem href="/test">
-                    <img className="logo" src="media/icons/entities2.png" alt="Entities"/>
+                    <img className="logo" src="/media/icons/entities2.png" alt="Entities"/>
                     <span>Entities</span>
                 </LeftMenuItem>
             </LeftMenuItemWrapper>

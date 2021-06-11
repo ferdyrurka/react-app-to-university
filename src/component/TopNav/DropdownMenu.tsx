@@ -110,15 +110,15 @@ function DropdownMenu() {
         <DropdownMenuContainer ref={wrapperRef}>
             <DropdownMenuTopNavWrapper onClick={!dropdownOpen ? toggleDropdown : closeDropdown} className="d-none d-md-flex">
                 <CenterItems>
-                    <img className="icon" src="media/icons/house2.png" alt="home page"/>
+                    <img className="icon" src="/media/icons/house2.png" alt="home page"/>
                     <span>Home</span>
                 </CenterItems>
 
-                <img className="arrow-icon" src="media/icons/arrow-down.png" alt="arrow down"/>
+                <img className="arrow-icon" src="/media/icons/arrow-down.png" alt="arrow down"/>
             </DropdownMenuTopNavWrapper>
 
             <DropdownMenuTopNavWrapper onClick={!dropdownOpen ? toggleDropdown : closeDropdown} className="d-flex d-md-none">
-                <img className="icon" src="media/icons/hamburger_menu.png" alt="menu"/>
+                <img className="icon" src="/media/icons/hamburger_menu.png" alt="menu"/>
             </DropdownMenuTopNavWrapper>
 
             {dropdownOpen &&
@@ -134,7 +134,7 @@ function DropdownMenu() {
                     )}
 
                     <DropdownMenuLogoutWrapper onClick={closeDropdown}>
-                        <img className="icon" src="media/icons/logout.png" alt="logout"/>
+                        <img className="icon" src="/media/icons/logout.png" alt="logout"/>
                         <span>Logout</span>
                     </DropdownMenuLogoutWrapper>
                 </DropdownMenuWrapper>

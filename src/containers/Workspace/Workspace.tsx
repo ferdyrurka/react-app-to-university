@@ -5,6 +5,7 @@ import WorkspaceHeader from "../../component/Workspaces/Site/WorkspaceHeader";
 import Comments from "../../component/ResumeYourWork/Comments";
 import {fetchUsers} from "../../actions/UserAction";
 import {fetchLatestPhotos} from "../../actions/PhotoAction";
+import StartWorkingOnCorporate from "../../component/Workspaces/Site/StartWorkingOnCorporate";
 
 function Workspace() {
     useEffect(() => {
@@ -22,6 +23,7 @@ function Workspace() {
     return (
         <main>
             <WorkspaceHeader workspace={workspace}/>
+            <StartWorkingOnCorporate/>
             <Comments/>
         </main>
     );

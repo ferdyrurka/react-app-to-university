@@ -13,6 +13,7 @@ const StartWorkingOnCorporateContainer = styled.div`
     color: ${Colors.darkBlue};
     font-size: ${FontSize["22"]};
     font-weight: 700;
+    margin-left: 15px;
   }
 `;
 

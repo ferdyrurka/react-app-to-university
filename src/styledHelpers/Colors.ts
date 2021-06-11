@@ -8,4 +8,5 @@ export const Colors = {
     blue: '#5163af',
     darkBlue: '#4B5268',
     borderColor: '#4B5268',
+    red: '#FF0000',
 }

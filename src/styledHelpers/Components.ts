@@ -48,12 +48,15 @@ export const CarouselFlex = styled(Carousel)`
 export const EditIcon = styled.div`
   position: relative;
 
-  img {
+  img, i {
     position: absolute;
     top: 0;
     right: 0;
     width: 16px;
     height: auto;
+    
+    &:hover {
+      cursor: pointer;
+    }
   }
 `;
-

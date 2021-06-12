@@ -1,12 +1,12 @@
 import styled from "styled-components";
-import {Colors} from "../../styledHelpers/Colors";
-import {FontSize} from "../../styledHelpers/FontSizes";
+import {Colors} from "../../../styledHelpers/Colors";
+import {FontSize} from "../../../styledHelpers/FontSizes";
 import WorkspaceItem from "./WorkspaceItem";
-import {Item, ITEMS} from "./WorkspaceItems";
-import {CarouselFlex} from "../../styledHelpers/Components";
+import {Item, ITEMS} from "../WorkspaceItems";
+import {CarouselFlex} from "../../../styledHelpers/Components";
 
 const WorkspacesContainer = styled.div`
-
+  
 `;
 
 const WorkspacesTitle = styled.h1`
@@ -26,6 +26,7 @@ const Workspaces = function () {
                         return (
                             <WorkspaceItem
                                 title={item.title}
+                                slug={item.slug}
                                 backgroundImageUrl={item.backgroundImageUrl}
                                 imagUrl={item.imagUrl}
                                 smallImageUrl={item.smallImageUrl}

@@ -12,6 +12,7 @@ import HomePage from "./containers/HomePage/HomePage";
 import Profile from './containers/Profile/Profile';
 import {fetchUserById} from "./actions/UserAction";
 import {CurrentUser} from "./tools/CurrentUser";
+import Workspace from "./containers/Workspace/Workspace";
 
 const Container = styled.div`
   margin: 0 auto;
@@ -55,6 +56,7 @@ function App() {
                                         <Route path="/profile" exact>
                                             <Profile/>
                                         </Route>
+                                        <Route path="/workspace/:workspaceSlug" exact children={<Workspace/>}/>
                                     </Switch>
                                 </div>
                             </Container>

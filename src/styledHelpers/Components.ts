@@ -13,7 +13,7 @@ export const Link = styled.a`
 export const SearchInput = styled.input`
   width: 100%;
   height: 30px;
-  background-image: url(media/icons/search.png);
+  background-image: url(/media/icons/search.png);
   background-repeat: no-repeat;
   background-position: calc(100% - 7px) 50%;
 

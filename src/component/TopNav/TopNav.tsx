@@ -32,7 +32,7 @@ const TopNavContainer = styled.nav`
 function TopNav() {
     return (
         <TopNavContainer>
-            <a href="/"><img className="logo" src="media/logo.png" alt="app"/></a>
+            <a href="/"><img className="logo" src="/media/logo.png" alt="app"/></a>
             <DropdownMenu/>
             <Search/>
             <Notification/>

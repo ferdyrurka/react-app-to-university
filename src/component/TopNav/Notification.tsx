@@ -63,14 +63,14 @@ function Notification() {
     return (
         <TopNavNotificationWrapper>
             <TopNavIcon href="/" className="d-none d-md-block">
-                <img src="media/icons/house.png" alt="home page"/>
+                <img src="/media/icons/house.png" alt="home page"/>
             </TopNavIcon>
             <TopNavCircleIcon href="/test">
-                <img src="media/icons/comments.png" alt="home page"/>
+                <img src="/media/icons/comments.png" alt="home page"/>
                 <TopNavBadge>3</TopNavBadge>
             </TopNavCircleIcon>
             <TopNavCircleIcon href="/test">
-                <img src="media/icons/bell.png" alt="home page"/>
+                <img src="/media/icons/bell.png" alt="home page"/>
                 <TopNavBadge>3</TopNavBadge>
             </TopNavCircleIcon>
         </TopNavNotificationWrapper>

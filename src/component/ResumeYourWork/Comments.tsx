@@ -13,6 +13,7 @@ import {IState} from "../../reducers";
 import {findCommentsAction} from "../../store/FilterCommentsStore";
 import {Followed} from "../../reducers/Comments/Followed";
 import Pagination from "./Pagination";
+import {Breakpoint} from "../../styledHelpers/Breakpoint";
 
 const ITEMS_COUNT: number = 10;
 
@@ -22,8 +23,13 @@ const CommentsContainer = styled.section`
 
 const CommentsNavWrapper = styled.div`
   display: flex;
+  flex-direction: column;
   margin: 20px 0 15px 15px;
   justify-content: space-between;
+
+  @media only screen and (min-width: ${Breakpoint["tablet"]}) {
+    flex-direction: row;
+  }
 `;
 
 const CommentsTitle = styled.h1`
@@ -33,23 +39,38 @@ const CommentsTitle = styled.h1`
 `;
 
 const CommentsActionWrapper = styled.div`
-  width: 360px;
+  max-width: 360px;
   display: flex;
   flex-wrap: nowrap;
   position: relative;
+  flex-direction: column;
+
+  @media only screen and (min-width: ${Breakpoint["tablet"]}) {
+    flex-direction: row;
+    width: 360px;
+  }
 `;
 
 const FilterInput = styled(SearchInput)`
   width: 190px;
+
+  @media only screen and (max-width: ${Breakpoint["tablet"]}) {
+    margin-top: 10px;
+    width: 100%;
+  }
 `;
 
 const FilterAction = styled.div`
   display: flex;
   align-items: center;
-  margin-left: auto;
-  margin-right: 20px;
   color: #5D6DB4;
   cursor: pointer;
+  margin-left: auto;
+  margin-right: 20px;
+
+  @media only screen and (max-width: ${Breakpoint["tablet"]}) {
+    margin: 10px 0 0 0;
+  }
 
   .arrow-icon {
     width: 10px;
@@ -149,9 +170,9 @@ function Comments() {
                 <CommentsActionWrapper ref={wrapperRef}>
                     <FilterInput placeholder="Filter by title" id="filter_title" onInput={() => changeFilterTitle()}/>
                     <FilterAction onClick={!dropdownOpen ? toggleDropdown : closeDropdown}>
-                        <img className="signal-icon" src="media/icons/ecosystem.png" alt="arrow down"/>
+                        <img className="signal-icon" src="/media/icons/ecosystem.png" alt="arrow down"/>
                         <span>Followed</span>
-                        <img className="arrow-icon" src="media/icons/arrow-down.png" alt="arrow down"/>
+                        <img className="arrow-icon" src="/media/icons/arrow-down.png" alt="arrow down"/>
                     </FilterAction>
                     {dropdownOpen &&
                     <FilterActionDropdownMenu>

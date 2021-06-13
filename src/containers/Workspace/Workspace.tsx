@@ -6,6 +6,9 @@ import Comments from "../../component/ResumeYourWork/Comments";
 import {fetchUsers} from "../../actions/UserAction";
 import {fetchLatestPhotos} from "../../actions/PhotoAction";
 import StartWorkingOnCorporate from "../../component/Workspaces/Site/StartWorkingOnCorporate";
+import styled from "styled-components";
+
+const WorkspaceContainer = styled.main``;
 
 function Workspace() {
     useEffect(() => {
@@ -21,11 +24,11 @@ function Workspace() {
     }
 
     return (
-        <main>
+        <WorkspaceContainer>
             <WorkspaceHeader workspace={workspace}/>
             <StartWorkingOnCorporate/>
             <Comments/>
-        </main>
+        </WorkspaceContainer>
     );
 }
 

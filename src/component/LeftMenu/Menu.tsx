@@ -49,7 +49,7 @@ function Menu() {
                 </LeftMenuItem>
             </LeftMenuItemWrapper>
             <LeftMenuItemWrapper>
-                <LeftMenuItem href="/test">
+                <LeftMenuItem href="/entities">
                     <img className="logo" src="/media/icons/entities2.png" alt="Entities"/>
                     <span>Entities</span>
                 </LeftMenuItem>

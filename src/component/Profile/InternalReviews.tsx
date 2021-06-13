@@ -64,7 +64,6 @@ function InternalReviews() {
                 location: yup.string().matches(/^[a-zA-Z -]+$/).required(),
                 expertise: yup.string().matches(/^#?[a-zA-Z0-9&. ]+$/).required(),
                 date: yup.string().matches(/^([0-9]{1,2})\/([0-9]){1,2}\/([0-9]){1,4}$/).required(),
-                firm: yup.string().matches(/^[a-zA-Z0-9 ]+$/).required(),
             })
         )
     });

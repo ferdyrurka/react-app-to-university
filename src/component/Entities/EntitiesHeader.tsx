@@ -7,9 +7,7 @@ import {LIST, MOSAIC} from "./ListingType";
 
 const EntitiesHeaderContainer = styled(FlexRow)`
   justify-content: space-between;
-  background-color: ${Colors.white};
-  padding: 10px 20px;
-  border-radius: 5px;
+  margin-bottom: 15px;
 `;
 
 const EntitiesHeaderTitle = styled(FlexRow)`
@@ -23,6 +21,9 @@ const EntitiesHeaderTitle = styled(FlexRow)`
   
   i {
     margin-left: 10px;
+    &:hover {
+      cursor: pointer;
+    }
   }
 `;
 
@@ -54,7 +55,7 @@ const EntitiesHeaderButton = styled.button`
   padding: 10px;
   color: #2A3F9D;
   font-weight: bold;
-  border: 1px solid ${Colors.grey};
+  border: 1px solid ${Colors.lightGrey};
   
   span {
     margin-left: 10px;

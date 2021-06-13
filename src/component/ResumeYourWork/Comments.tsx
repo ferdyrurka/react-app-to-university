@@ -1,9 +1,7 @@
 import styled from "styled-components";
 import {Colors} from "../../styledHelpers/Colors";
 import {FontSize} from "../../styledHelpers/FontSizes";
-import {SearchInput} from "../../styledHelpers/Components";
 import React, {Dispatch, useCallback, useEffect, useState} from "react";
-import useDropdown from "react-dropdown-hook";
 import {IComment} from "../../entities/Comment";
 import {fetchComments} from "../../actions/CommentAction";
 import CommentItem from "./CommentItem";
@@ -14,6 +12,7 @@ import {findCommentsAction} from "../../store/FilterCommentsStore";
 import {Followed} from "../../reducers/Comments/Followed";
 import Pagination from "./Pagination";
 import {Breakpoint} from "../../styledHelpers/Breakpoint";
+import SearchFollowed from "../Filters/SearchFollowed";
 
 const ITEMS_COUNT: number = 10;
 
@@ -38,77 +37,11 @@ const CommentsTitle = styled.h1`
   font-weight: 700;
 `;
 
-const CommentsActionWrapper = styled.div`
-  max-width: 360px;
-  display: flex;
-  flex-wrap: nowrap;
-  position: relative;
-  flex-direction: column;
-
-  @media only screen and (min-width: ${Breakpoint["tablet"]}) {
-    flex-direction: row;
-    width: 360px;
-  }
-`;
-
-const FilterInput = styled(SearchInput)`
-  width: 190px;
-
-  @media only screen and (max-width: ${Breakpoint["tablet"]}) {
-    margin-top: 10px;
-    width: 100%;
-  }
-`;
-
-const FilterAction = styled.div`
-  display: flex;
-  align-items: center;
-  color: #5D6DB4;
-  cursor: pointer;
-  margin-left: auto;
-  margin-right: 20px;
-
-  @media only screen and (max-width: ${Breakpoint["tablet"]}) {
-    margin: 10px 0 0 0;
-  }
-
-  .arrow-icon {
-    width: 10px;
-    height: 8px;
-    margin-left: 10px;
-  }
-
-  .signal-icon {
-    margin-right: 10px;
-  }
-`;
-
-const FilterActionDropdownMenu = styled.div`
-  position: absolute;
-  background-color: ${Colors.white};
-  top: 30px;
-  right: 0;
-  width: 160px;
-  padding: 5px 10px;
-  border-radius: 5px;
-`;
-
-const FilterActionOption = styled.div`
-  span {
-    cursor: pointer;
-  }
-  
-  .active {
-    font-weight: bold;
-  }
-`;
-
 const CommentsWrapper = styled(FlexColumn)`
   flex-wrap: nowrap;
 `;
 
 function Comments() {
-    const [wrapperRef, dropdownOpen, toggleDropdown, closeDropdown] = useDropdown();
     const [sourceComments, setSourceComments] = useState<IComment[]>([]);
 
     const dispatch: Dispatch<any> = useDispatch();
@@ -167,24 +100,7 @@ function Comments() {
             <CommentsNavWrapper>
                 <CommentsTitle>Resume your work</CommentsTitle>
 
-                <CommentsActionWrapper ref={wrapperRef}>
-                    <FilterInput placeholder="Filter by title" id="filter_title" onInput={() => changeFilterTitle()}/>
-                    <FilterAction onClick={!dropdownOpen ? toggleDropdown : closeDropdown}>
-                        <img className="signal-icon" src="/media/icons/ecosystem.png" alt="arrow down"/>
-                        <span>Followed</span>
-                        <img className="arrow-icon" src="/media/icons/arrow-down.png" alt="arrow down"/>
-                    </FilterAction>
-                    {dropdownOpen &&
-                    <FilterActionDropdownMenu>
-                        <FilterActionOption>
-                            <span className={followed === Followed.MY ? 'active' : ''} onClick={() => changeFollowed(Followed.MY)}>My</span>
-                        </FilterActionOption>
-                        <FilterActionOption>
-                            <span className={followed === Followed.ALL ? 'active' : ''} onClick={() => changeFollowed(Followed.ALL)}>All</span>
-                        </FilterActionOption>
-                    </FilterActionDropdownMenu>
-                    }
-                </CommentsActionWrapper>
+                <SearchFollowed filterInputCallback={changeFilterTitle} followed={followed} followedCallback={changeFollowed}/>
             </CommentsNavWrapper>
 
             {comments.length > 0 &&

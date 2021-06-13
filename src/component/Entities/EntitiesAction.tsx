@@ -1,13 +1,20 @@
-import {FC} from "react";
+import {FC, useCallback} from "react";
 import styled from "styled-components";
 import {Colors} from "../../styledHelpers/Colors";
-import {FlexRow} from "../../styledHelpers/Grid";
+import {FlexColumn, FlexRow} from "../../styledHelpers/Grid";
+import SearchFollowed from "../Filters/SearchFollowed";
+import {Followed} from "../../reducers/Comments/Followed";
+import {Breakpoint} from "../../styledHelpers/Breakpoint";
+import {CarouselFlex} from "../../styledHelpers/Components";
 
-const EntitiesActionContainer = styled(FlexRow)`
-
+const EntitiesActionContainer = styled(FlexColumn)`
+  @media only screen and (min-width: ${Breakpoint["tablet"]}) {
+    flex-direction: row;
+    justify-content: space-between;
+  }
 `;
 
-const EntitiesActionLeftSection = styled(FlexRow)`
+const EntitiesActionLeftSection = styled(CarouselFlex)`
   align-items: center;
 `;
 
@@ -34,6 +41,7 @@ const EntitiesActionAllButton = styled.button`
   font-weight: bold;
   border: 1px solid ${Colors.lightGrey};
   border-radius: 5px;
+  white-space: nowrap;
   
   i {
     &:nth-child(1) {
@@ -55,6 +63,7 @@ const EntitiesActionDataSection = styled(FlexRow)`
     color: ${Colors.grey};
     background-color: transparent;
     border: none;
+    white-space: nowrap;
     
     i {
       margin-right: 5px;
@@ -83,6 +92,7 @@ const EntitiesActionShare = styled(FlexRow)`
     background-color: transparent;
     border: none;
     color: ${Colors.grey};
+    white-space: nowrap;
 
     span {
       margin-left: 8px;
@@ -94,6 +104,13 @@ interface EntitiesActionProps {
 }
 
 const EntitiesAction: FC<EntitiesActionProps> = props => {
+    const changeFilterTitle = useCallback(
+        () => {
+
+        },
+        []
+    );
+
     return (
         <EntitiesActionContainer>
             <EntitiesActionLeftSection>
@@ -128,6 +145,7 @@ const EntitiesAction: FC<EntitiesActionProps> = props => {
                     </button>
                 </EntitiesActionShare>
             </EntitiesActionLeftSection>
+            <SearchFollowed filterInputCallback={changeFilterTitle} followed={Followed.ALL} followedCallback={(newFollowed) => {}}/>
         </EntitiesActionContainer>
     );
 }

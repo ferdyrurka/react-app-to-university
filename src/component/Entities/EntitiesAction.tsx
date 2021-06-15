@@ -1,4 +1,4 @@
-import {FC, useCallback} from "react";
+import {Dispatch, FC, SetStateAction, useCallback} from "react";
 import styled from "styled-components";
 import {Colors} from "../../styledHelpers/Colors";
 import {FlexColumn, FlexRow} from "../../styledHelpers/Grid";
@@ -6,6 +6,7 @@ import SearchFollowed from "../Filters/SearchFollowed";
 import {Followed} from "../../reducers/Comments/Followed";
 import {Breakpoint} from "../../styledHelpers/Breakpoint";
 import {CarouselFlex} from "../../styledHelpers/Components";
+import {Sort} from "../../entities/Sort";
 
 const EntitiesActionContainer = styled(FlexColumn)`
   @media only screen and (min-width: ${Breakpoint["tablet"]}) {
@@ -101,6 +102,8 @@ const EntitiesActionShare = styled(FlexRow)`
 `;
 
 interface EntitiesActionProps {
+    sort: Sort,
+    setSort: Dispatch<SetStateAction<Sort>>,
 }
 
 const EntitiesAction: FC<EntitiesActionProps> = props => {
@@ -126,7 +129,7 @@ const EntitiesAction: FC<EntitiesActionProps> = props => {
                     </div>
                 </EntitiesActionStaticSection>
                 <EntitiesActionDataSection>
-                    <button>
+                    <button onClick={() => props.setSort(Sort.DESC === props.sort ? Sort.ASC : Sort.DESC)}>
                         <i className="bi bi-sort-alpha-down"/>
                         <span>Sort</span>
                     </button>

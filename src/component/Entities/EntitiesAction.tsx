@@ -9,7 +9,8 @@ import {CarouselFlex} from "../../styledHelpers/Components";
 import {Sort} from "../../entities/Sort";
 import {shallowEqual, useDispatch, useSelector} from "react-redux";
 import {IState} from "../../reducers";
-import {sortEntityItemsAction} from "../../store/EntityItemsActions";
+import {findEntityItemsAction, sortEntityItemsAction} from "../../store/EntityItemsActions";
+import {IEntityItem} from "../../entities/EntityItem";
 
 const EntitiesActionContainer = styled(FlexColumn)`
   @media only screen and (min-width: ${Breakpoint["tablet"]}) {
@@ -104,21 +105,27 @@ const EntitiesActionShare = styled(FlexRow)`
   }
 `;
 
-interface EntitiesActionProps {}
+interface EntitiesActionProps {
+    sourceEntityItems: IEntityItem[],
+}
 
 const EntitiesAction: FC<EntitiesActionProps> = props => {
     const dispatch: Dispatch<any> = useDispatch();
 
-    const changeFilterTitle = useCallback(
-        () => {
-
-        },
-        []
-    );
-
     let sort: Sort = useSelector(
         (state: IState) => state.entityItems.sort,
         shallowEqual
+    );
+
+    const changeFilterTitle = useCallback(
+        () => {
+            dispatch(findEntityItemsAction(
+                props.sourceEntityItems,
+                sort,
+                (document.getElementById('filter_title') as HTMLInputElement)
+            ));
+        },
+        [dispatch, sort, props.sourceEntityItems]
     );
 
     const changeSort = useCallback(() => {

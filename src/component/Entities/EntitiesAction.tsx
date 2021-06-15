@@ -1,4 +1,4 @@
-import {Dispatch, FC, SetStateAction, useCallback} from "react";
+import {Dispatch, FC, useCallback} from "react";
 import styled from "styled-components";
 import {Colors} from "../../styledHelpers/Colors";
 import {FlexColumn, FlexRow} from "../../styledHelpers/Grid";
@@ -7,6 +7,9 @@ import {Followed} from "../../reducers/Comments/Followed";
 import {Breakpoint} from "../../styledHelpers/Breakpoint";
 import {CarouselFlex} from "../../styledHelpers/Components";
 import {Sort} from "../../entities/Sort";
+import {shallowEqual, useDispatch, useSelector} from "react-redux";
+import {IState} from "../../reducers";
+import {sortEntityItemsAction} from "../../store/EntityItemsActions";
 
 const EntitiesActionContainer = styled(FlexColumn)`
   @media only screen and (min-width: ${Breakpoint["tablet"]}) {
@@ -101,18 +104,26 @@ const EntitiesActionShare = styled(FlexRow)`
   }
 `;
 
-interface EntitiesActionProps {
-    sort: Sort,
-    setSort: Dispatch<SetStateAction<Sort>>,
-}
+interface EntitiesActionProps {}
 
 const EntitiesAction: FC<EntitiesActionProps> = props => {
+    const dispatch: Dispatch<any> = useDispatch();
+
     const changeFilterTitle = useCallback(
         () => {
 
         },
         []
     );
+
+    let sort: Sort = useSelector(
+        (state: IState) => state.entityItems.sort,
+        shallowEqual
+    );
+
+    const changeSort = useCallback(() => {
+        dispatch(sortEntityItemsAction(Sort.DESC === sort ? Sort.ASC : Sort.DESC))
+    }, [dispatch, sort]);
 
     return (
         <EntitiesActionContainer>
@@ -129,7 +140,7 @@ const EntitiesAction: FC<EntitiesActionProps> = props => {
                     </div>
                 </EntitiesActionStaticSection>
                 <EntitiesActionDataSection>
-                    <button onClick={() => props.setSort(Sort.DESC === props.sort ? Sort.ASC : Sort.DESC)}>
+                    <button onClick={changeSort}>
                         <i className="bi bi-sort-alpha-down"/>
                         <span>Sort</span>
                     </button>

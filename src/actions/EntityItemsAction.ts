@@ -1,6 +1,8 @@
 import {IPhoto} from "../entities/Photo";
 import {IEntityItem} from "../entities/EntityItem";
 import {Sort} from "../entities/Sort";
+import store from "../tools/store";
+import {fetchEntityItemsAction} from "../store/EntityItemsActions";
 
 const TEN_HARDCODE_NAMES = [
     'ABC Generic Comapany',
@@ -16,7 +18,7 @@ const TEN_HARDCODE_NAMES = [
 ];
 
 export function findFirstThirtyEntityItems(photos: IPhoto[], sort: Sort = Sort.DESC): IEntityItem[] {
-    const result: IEntityItem[] = [];
+    let result: IEntityItem[] = [];
 
     if (photos.length === 0) {
         return result;
@@ -26,6 +28,7 @@ export function findFirstThirtyEntityItems(photos: IPhoto[], sort: Sort = Sort.D
 
     for (let i: number = 0;i < 30; i++) {
         let name = names.next().value;
+
         if (!name) {
             names = TEN_HARDCODE_NAMES.values();
             name = names.next().value;
@@ -37,19 +40,23 @@ export function findFirstThirtyEntityItems(photos: IPhoto[], sort: Sort = Sort.D
         });
     }
 
-    result.sort((a: IEntityItem, b: IEntityItem) => {
+    result = sortEntityItems(result, sort);
+
+    store.dispatch(fetchEntityItemsAction(result, sort));
+
+    return result;
+}
+
+export function sortEntityItems(entityItems: IEntityItem[], sort: Sort) {
+    entityItems.sort((a: IEntityItem, b: IEntityItem) => {
         if(a.name < b.name)
-            return -1;
+            return sort === Sort.DESC ? -1 : 1;
 
         if(a.name > b.name)
-            return 1;
+            return sort === Sort.DESC ? 1 : -1;
 
         return 0;
     });
 
-    if (sort === Sort.ASC) {
-        result.reverse();
-    }
-
-    return result;
+    return entityItems;
 }

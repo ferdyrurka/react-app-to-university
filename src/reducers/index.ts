@@ -4,6 +4,7 @@ import comments, {IFilterCommentsReducer} from "./Comments/FilterCommentsReducer
 import users, {IUsersReducer} from "./Users/UsersReducer";
 import photos, {IPhotosReducer} from "./Photo/PhotosReducer";
 import currentUser, {ICurrentUserReducer} from "./CurrentUser/CurrentUserReducer";
+import entityItems, {IEntityItemsReducer} from "./EntityItems/EntityItemsReducer";
 
 export default combineReducers({
     items,
@@ -11,6 +12,7 @@ export default combineReducers({
     users,
     photos,
     currentUser,
+    entityItems,
 })
 
 export interface IState {
@@ -19,4 +21,5 @@ export interface IState {
     users: IUsersReducer,
     photos: IPhotosReducer,
     currentUser: ICurrentUserReducer,
+    entityItems: IEntityItemsReducer,
 }

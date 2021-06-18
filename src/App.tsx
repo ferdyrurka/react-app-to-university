@@ -44,6 +44,10 @@ function App() {
                 <Switch>
                     <Route path="/test" exact component={Test}/>
 
+                    <Route path="/entities/full-screen" exact>
+                        <Entities/>
+                    </Route>
+
                     <Route path="/">
                         <main>
                             <TopNav/>

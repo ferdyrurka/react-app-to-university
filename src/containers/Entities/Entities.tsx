@@ -30,7 +30,7 @@ function Entities() {
         <EntitiesContainer>
             <EntitiesHeader listingType={listingType} setListingType={setListingType}/>
             <EntitiesAction sourceEntityItems={entityItems}/>
-            <EntityItems/>
+            <EntityItems listingType={listingType}/>
         </EntitiesContainer>
     );
 }

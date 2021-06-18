@@ -11,6 +11,7 @@ import {shallowEqual, useDispatch, useSelector} from "react-redux";
 import {IState} from "../../reducers";
 import {findEntityItemsAction, sortEntityItemsAction} from "../../store/EntityItemsActions";
 import {IEntityItem} from "../../entities/EntityItem";
+import {copyToClipboard} from "../../tools/Clipboard";
 
 const EntitiesActionContainer = styled(FlexColumn)`
   @media only screen and (min-width: ${Breakpoint["tablet"]}) {
@@ -82,7 +83,11 @@ const EntitiesActionFullScreen = styled(FlexRow)`
   padding: 0 10px;
   height: 38px;
   align-items: center;
-  color: ${Colors.grey};
+  
+  a {
+    text-decoration: none;
+    color: ${Colors.grey};
+  }
   
   &:hover {
     cursor: pointer;
@@ -157,10 +162,20 @@ const EntitiesAction: FC<EntitiesActionProps> = props => {
                     </button>
                 </EntitiesActionDataSection>
                 <EntitiesActionFullScreen>
-                    <i className="bi bi-arrows-fullscreen"/>
+                    {window.location.href.indexOf('/full-screen') >= 0 &&
+                    <a href={window.location.href.replace('/full-screen', '')}>
+                        <i className="bi bi-fullscreen-exit"/>
+                    </a>
+                    }
+
+                    {window.location.href.indexOf('/full-screen') === -1 &&
+                    <a href={window.location.href + '/full-screen'}>
+                        <i className="bi bi-arrows-fullscreen"/>
+                    </a>
+                    }
                 </EntitiesActionFullScreen>
                 <EntitiesActionShare>
-                    <button>
+                    <button onClick={() => {copyToClipboard(window.location.href)}}>
                         <i className="bi bi-share"/>
                         <span>Share</span>
                     </button>

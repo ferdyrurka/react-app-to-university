@@ -112,6 +112,8 @@ const EntitiesActionShare = styled(FlexRow)`
 
 interface EntitiesActionProps {
     sourceEntityItems: IEntityItem[],
+    filterOpen: boolean,
+    setFilterOpen: Dispatch<boolean>,
 }
 
 const EntitiesAction: FC<EntitiesActionProps> = props => {
@@ -156,7 +158,7 @@ const EntitiesAction: FC<EntitiesActionProps> = props => {
                         <i className="bi bi-sort-alpha-down"/>
                         <span>Sort</span>
                     </button>
-                    <button>
+                    <button onClick={() => props.setFilterOpen(!props.filterOpen)}>
                         <i className="bi bi-funnel"/>
                         <span>Filters</span>
                     </button>

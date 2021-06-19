@@ -8,6 +8,7 @@ import EntityItems from "../../component/Entities/EntityItems";
 import {fetchLatestPhotos} from "../../actions/PhotoAction";
 import {findFirstThirtyEntityItems} from "../../actions/EntityItemsAction";
 import {IEntityItem} from "../../entities/EntityItem";
+import EntitiesFilter from "../../component/Entities/EntitiesFilter";
 
 const EntitiesContainer = styled.div`
   background-color: ${Colors.white};
@@ -25,11 +26,15 @@ function Entities() {
     }, [])
 
     const [listingType, setListingType] = useState<string>(MOSAIC);
+    const [filterOpen, setFilterOpen] = useState<boolean>(false);
 
     return (
         <EntitiesContainer>
             <EntitiesHeader listingType={listingType} setListingType={setListingType}/>
-            <EntitiesAction sourceEntityItems={entityItems}/>
+            <EntitiesAction sourceEntityItems={entityItems} setFilterOpen={setFilterOpen} filterOpen={filterOpen}/>
+            {filterOpen &&
+            <EntitiesFilter/>
+            }
             <EntityItems listingType={listingType}/>
         </EntitiesContainer>
     );

@@ -3,10 +3,10 @@ import {FC} from "react";
 import {IComment} from "../../entities/Comment";
 import {Colors} from "../../styledHelpers/Colors";
 import {FontSize} from "../../styledHelpers/FontSizes";
-import {FlexRow} from "../../styledHelpers/Grid";
 import {IUser} from "../../entities/User";
 import {shallowEqual, useSelector} from "react-redux";
 import {IState} from "../../reducers";
+import {CarouselFlex} from "../../styledHelpers/Components";
 
 const CommentItemWrapper = styled.div`
   width: 100%;
@@ -27,7 +27,7 @@ const CommentItemWrapper = styled.div`
   }
 `;
 
-const CommentItemsAbout = styled(FlexRow)`
+const CommentItemsAbout = styled(CarouselFlex)`
   .item {
     display: flex;
     align-items: center;
@@ -36,6 +36,7 @@ const CommentItemsAbout = styled(FlexRow)`
       color: ${Colors.darkGrey};
       font-size: ${FontSize["12"]};
       margin-right: 10px;
+      white-space: nowrap;
     }
 
     img {

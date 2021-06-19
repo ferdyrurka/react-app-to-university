@@ -5,31 +5,31 @@ const ITEMS: MenuSectionItems[] = [
             {
                 icon: '/media/icons/house.png',
                 title: 'Home',
-                href: 'test',
+                href: '/',
                 description: '',
             },
             {
                 icon: '/media/icons/publications.png',
                 title: 'Publications',
-                href: 'test',
+                href: '/test',
                 description: '',
             },
             {
                 icon: '/media/icons/people.png',
                 title: 'People',
-                href: 'test',
+                href: '/test',
                 description: '',
             },
             {
                 icon: '/media/icons/entities2.png',
                 title: 'Entities',
-                href: 'test',
+                href: '/entities',
                 description: '',
             },
             {
                 icon: '/media/icons/administration.png',
                 title: 'Administration',
-                href: 'test',
+                href: '/test',
                 description: '',
             },
         ]
@@ -40,31 +40,31 @@ const ITEMS: MenuSectionItems[] = [
             {
                 icon: '/media/icons/privacy.png',
                 title: 'Client contract',
-                href: 'test',
+                href: '/workspace/client-contract',
                 description: '',
             },
             {
                 icon: '/media/icons/privacy.png',
                 title: 'Supplier contract',
-                href: 'test',
+                href: '/workspace/supplier-contract',
                 description: '',
             },
             {
                 icon: '/media/icons/entities2.png',
                 title: 'Corporate',
-                href: 'test',
+                href: '/workspace/corporate',
                 description: '',
             },
             {
                 icon: '/media/icons/publications.png',
                 title: 'Group Norms',
-                href: 'test',
+                href: '/workspace/group-norms',
                 description: '',
             },
             {
                 icon: '/media/icons/privacy.png',
                 title: 'Real estate contracts',
-                href: 'test',
+                href: '/workspace/real-estate-contracts',
                 description: '',
             },
         ]

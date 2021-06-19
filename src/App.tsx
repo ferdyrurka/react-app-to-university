@@ -13,6 +13,7 @@ import Profile from './containers/Profile/Profile';
 import {fetchUserById} from "./actions/UserAction";
 import {CurrentUser} from "./tools/CurrentUser";
 import Workspace from "./containers/Workspace/Workspace";
+import Entities from "./containers/Entities/Entities";
 
 const Container = styled.div`
   margin: 0 auto;
@@ -43,6 +44,10 @@ function App() {
                 <Switch>
                     <Route path="/test" exact component={Test}/>
 
+                    <Route path="/entities/full-screen" exact>
+                        <Entities/>
+                    </Route>
+
                     <Route path="/">
                         <main>
                             <TopNav/>
@@ -57,6 +62,9 @@ function App() {
                                             <Profile/>
                                         </Route>
                                         <Route path="/workspace/:workspaceSlug" exact children={<Workspace/>}/>
+                                        <Route path="/entities" exact>
+                                            <Entities/>
+                                        </Route>
                                     </Switch>
                                 </div>
                             </Container>

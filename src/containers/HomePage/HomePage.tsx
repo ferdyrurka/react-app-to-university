@@ -9,7 +9,7 @@ function HomePage() {
     useEffect(() => {
         fetchUsers();
         fetchLatestPhotos();
-    }, [])
+    }, []);
 
     return (
         <main>
